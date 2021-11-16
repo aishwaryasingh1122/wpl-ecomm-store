@@ -1,0 +1,15 @@
+@import "../../../../assets/scss/brand";
+
+.verify-page {
+  padding-top: 20vh;
+}
+
+.logo {
+  width: 5rem;
+  height: 5rem;
+}
+
+.login-link {
+  color: $brand-primary;
+  cursor: pointer;
+}

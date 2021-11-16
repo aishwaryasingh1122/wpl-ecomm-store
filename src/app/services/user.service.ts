@@ -50,7 +50,19 @@ export class UserService {
       .pipe(
         map((res: HttpResponse<any>) => {
           return res && res.status == 200;
-        })
+        }),
+        catchError(handleHTTPError)
+      );
+  }
+
+  verifyAccount(userId: string): Observable<boolean> {
+    return this.dataService
+      .sendGET(API_CONFIG.USER.VERIFY_ACCOUNT.replace(':userId', userId))
+      .pipe(
+        map((res: HttpResponse<any>) => {
+          return res && res.status === 200;
+        }),
+        catchError(handleHTTPError)
       );
   }
 }

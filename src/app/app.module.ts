@@ -12,6 +12,7 @@ import { MaterialModule } from './material.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { InterceptorService } from './services/interceptor.service';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [AppComponent, AppLayoutComponent, AuthLayoutComponent],
@@ -21,6 +22,7 @@ import { InterceptorService } from './services/interceptor.service';
     BrowserAnimationsModule,
     MaterialModule,
     HttpClientModule,
+    NgxSpinnerModule,
     ToastrModule.forRoot({
       timeOut: 5000,
       preventDuplicates: true,

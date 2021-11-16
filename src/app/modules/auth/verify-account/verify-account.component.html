@@ -1,0 +1,44 @@
+<div class="main-content">
+  <div class="container-fluid verify-page">
+    <div class="row" *ngIf="showVerificationResults">
+      <div class="col-xs-12 col-sm-6 col-md-4 offset-md-4">
+        <div class="card animate__animated animate__fadeInDown">
+          <div class="card-body d-flex flex-column align-items-center">
+            <ng-container
+              *ngIf="verificationResult; then successImg; else errorImg"
+            ></ng-container>
+            <ng-template #successImg>
+              <img
+                src="../../../../assets/img/success.svg"
+                alt="success img"
+                class="avatar logo justify-content-center"
+              />
+            </ng-template>
+            <ng-template #errorImg>
+              <img
+                src="../../../../assets/img/error.svg"
+                alt="error img"
+                class="avatar logo justify-content-center"
+              />
+            </ng-template>
+
+            <h4 class="mt-3">
+              {{
+                verificationResult
+                  ? "Account Verified Successfully"
+                  : "Account Verification Failed"
+              }}
+            </h4>
+            <p
+              *ngIf="verificationResult"
+              [routerLink]="['/login']"
+              routerLinkActive="router-link-active"
+            >
+              Click <span class="login-link">here</span> to login
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

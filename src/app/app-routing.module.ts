@@ -27,6 +27,10 @@ const routes: Routes = [
     component: AppLayoutComponent,
     children: [],
   },
+  {
+    path: '**',
+    redirectTo: 'login',
+  },
 ];
 
 @NgModule({
