@@ -9,8 +9,9 @@ import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
+import { InterceptorService } from './services/interceptor.service';
 
 @NgModule({
   declarations: [AppComponent, AppLayoutComponent, AuthLayoutComponent],
@@ -33,7 +34,13 @@ import { ToastrModule } from 'ngx-toastr';
       registrationStrategy: 'registerWhenStable:30000',
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: InterceptorService,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

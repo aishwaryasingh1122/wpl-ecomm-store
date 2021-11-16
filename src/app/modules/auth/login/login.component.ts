@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'login',
@@ -13,14 +14,31 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor(private toastrService: ToastrService) {}
+  showLoader = false;
+
+  constructor(
+    private toastrService: ToastrService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {}
 
   login() {
-    this.toastrService.success('Success Message', 'Toast Title');
-    this.toastrService.info('Info Message', 'Toast Title');
-    this.toastrService.warning('Warning Message', 'Toast Title');
-    this.toastrService.error('Error Message', 'Toast Title');
+    this.showLoader = true;
+    this.userService.login(this.loginForm.value).subscribe({
+      next: (res: Boolean) => {
+        this.showLoader = false;
+        if (res) {
+          this.toastrService.success(
+            'Welcome to E-Comm Store',
+            'Login Successful!'
+          );
+        }
+      },
+      error: (err) => {
+        this.showLoader = false;
+        this.toastrService.error(err, 'Login Failed');
+      },
+    });
   }
 }

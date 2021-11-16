@@ -1,7 +1,7 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, map, Observable } from 'rxjs';
-import { API_CONFIG } from '../constants';
+import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import { API_CONFIG, handleHTTPError } from '../constants';
 import { User, UserLoginParams, UserRegisterParams } from '../models/user';
 import { DataService } from './data.service';
 import { SecureStorageService } from './secure-storage.service';
@@ -39,7 +39,8 @@ export class UserService {
             this.userSubject.next(res.body);
           }
           return res && res.status == 200;
-        })
+        }),
+        catchError(handleHTTPError)
       );
   }
 

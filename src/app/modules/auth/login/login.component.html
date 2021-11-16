@@ -48,9 +48,16 @@
                 </mat-error>
               </mat-form-field>
               <div class="row">
-                <div class="col-12 text-center">
+                <div class="col-12" align="center">
+                  <mat-spinner
+                    mode="indeterminate"
+                    color="primary"
+                    [diameter]="30"
+                    *ngIf="showLoader"
+                  ></mat-spinner>
                   <button
                     type="submit"
+                    *ngIf="!showLoader"
                     mat-raised-button
                     color="primary"
                     class="text-white"

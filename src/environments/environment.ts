@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  host: 'https://wpl-ecomm-server.herokuapp.com/',
+  host: 'https://wpl-ecomm-server.herokuapp.com',
 };
 
 /*
