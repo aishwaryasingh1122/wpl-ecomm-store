@@ -1,0 +1,47 @@
+<div class="main-content">
+  <div class="container-fluid login-page">
+    <div class="row">
+      <div class="col-xs-12 col-sm-6 col-md-4 offset-md-4">
+        <div class="card">
+          <div class="card-body d-flex flex-column align-items-center">
+            <img
+              src="../../../../assets/img/dev-snacks-logo-bg.png"
+              alt="e-comm-store logo"
+              class="avatar logo justify-content-center"
+            />
+            <h4>E-Comm Store Login</h4>
+            <form [formGroup]="loginForm">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter email"
+                  type="email"
+                  formControlName="email"
+                />
+                <mat-icon matSuffix>person</mat-icon>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  placeholder="Enter password"
+                  type="password"
+                  formControlName="password"
+                />
+                <mat-icon matSuffix>lock</mat-icon>
+              </mat-form-field>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button mat-raised-button color="primary" class="text-white">
+                    Login
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

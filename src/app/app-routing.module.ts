@@ -3,15 +3,26 @@ import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
+import { AuthModule } from './modules/auth/auth.module';
 
 const routes: Routes = [
   {
     path: '',
-    component: AuthLayoutComponent,
-    children: [],
+    redirectTo: 'login',
+    pathMatch: 'full',
   },
   {
-    path: '/account',
+    path: '',
+    component: AuthLayoutComponent,
+    children: [
+      {
+        path: '',
+        loadChildren: () => AuthModule,
+      },
+    ],
+  },
+  {
+    path: 'account',
     canActivate: [],
     component: AppLayoutComponent,
     children: [],
