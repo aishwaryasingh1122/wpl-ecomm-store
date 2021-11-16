@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'login',
@@ -12,7 +13,14 @@ export class LoginComponent implements OnInit {
     password: new FormControl('', [Validators.required]),
   });
 
-  constructor() {}
+  constructor(private toastrService: ToastrService) {}
 
   ngOnInit(): void {}
+
+  login() {
+    this.toastrService.success('Success Message', 'Toast Title');
+    this.toastrService.info('Info Message', 'Toast Title');
+    this.toastrService.warning('Warning Message', 'Toast Title');
+    this.toastrService.error('Error Message', 'Toast Title');
+  }
 }

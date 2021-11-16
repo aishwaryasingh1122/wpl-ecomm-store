@@ -1,5 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~animate.css/animate.min";
+@import "./assets/scss/brand";
+
 html,
 body {
   height: 100%;
@@ -25,4 +27,20 @@ mat-form-field {
 
 .card {
   border-radius: 10px;
+}
+
+.toast-success {
+  background-color: $brand-success;
+}
+
+.toast-info {
+  background-color: $brand-info;
+}
+
+.toast-warning {
+  background-color: $brand-warning;
+}
+
+.toast-error {
+  background-color: $brand-danger;
 }
