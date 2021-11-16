@@ -1,4 +1,4 @@
-$ecomm-store-primary: (
+$e-comm-primary: (
   50: #ffebe4,
   100: #ffcdbd,
   200: #ffab91,
@@ -31,7 +31,7 @@ $ecomm-store-primary: (
   ),
 );
 
-$ecomm-store-accent: (
+$e-comm-accent: (
   50: #e0f6ff,
   100: #b3e7ff,
   200: #80d8ff,
@@ -70,8 +70,8 @@ $ecomm-store-accent: (
 @include mat-core();
 
 // Define a theme.
-$custom-primary: mat-palette($ecomm-store-primary);
-$custom-accent: mat-palette($ecomm-store-accent);
+$custom-primary: mat-palette($dev-snacks-primary);
+$custom-accent: mat-palette($dev-snacks-accent);
 
 $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 
@@ -81,7 +81,7 @@ $custom-theme: mat-light-theme($custom-primary, $custom-accent);
 // Define a custom typography config that overrides the font-family as well as the
 // `headlines` and `body-1` levels.
 $custom-typography: mat-typography-config(
-  $font-family: "Montserrat, monospace",
+  $font-family: "Noto Sans, monospace",
   $headline: mat-typography-level(32px, 48px, 700),
   $body-1: mat-typography-level(16px, 24px, 400),
 );
