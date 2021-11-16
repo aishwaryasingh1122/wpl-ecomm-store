@@ -20,6 +20,17 @@
                   formControlName="email"
                 />
                 <mat-icon matSuffix>person</mat-icon>
+                <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+                  Email is <strong>required</strong>
+                </mat-error>
+                <mat-error
+                  *ngIf="
+                    !loginForm.get('email')?.hasError('required') &&
+                    loginForm.get('email')?.hasError('email')
+                  "
+                >
+                  Email is <strong>invalid</strong>
+                </mat-error>
               </mat-form-field>
               <mat-form-field appearance="outline">
                 <mat-label>Password</mat-label>
@@ -30,6 +41,11 @@
                   formControlName="password"
                 />
                 <mat-icon matSuffix>lock</mat-icon>
+                <mat-error
+                  *ngIf="loginForm.get('password')?.hasError('required')"
+                >
+                  Password is <strong>required</strong>
+                </mat-error>
               </mat-form-field>
               <div class="row">
                 <div class="col-12 text-center">

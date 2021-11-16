@@ -1,1 +1,135 @@
-<p>registration works!</p>
+<div class="main-content">
+  <div class="container-fluid registration-page">
+    <div class="row">
+      <div class="col-12 col-sm-6 offset-sm-3">
+        <div class="card animate__animated animate__fadeInDown">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center">
+              <img
+                src="../../../../assets/img/dev-snacks-logo-bg.png"
+                alt="e-comm-store logo"
+                class="avatar logo justify-content-center"
+              />
+              <h4>E-Comm Store Signup</h4>
+            </div>
+            <form [formGroup]="registrationForm">
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>First Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter first name"
+                      formControlName="firstName"
+                    />
+                    <mat-error
+                      *ngIf="
+                        registrationForm.get('firstName')?.hasError('required')
+                      "
+                    >
+                      First Name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter last name"
+                      formControlName="lastName"
+                    />
+                    <mat-error
+                      *ngIf="
+                        registrationForm.get('lastName')?.hasError('required')
+                      "
+                    >
+                      Last Name is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter email"
+                      type="email"
+                      formControlName="email"
+                    />
+                    <mat-error
+                      *ngIf="
+                        registrationForm.get('email')?.hasError('required')
+                      "
+                    >
+                      Email is <strong>required</strong>
+                    </mat-error>
+                    <mat-error
+                      *ngIf="
+                        !registrationForm.get('email')?.hasError('required') &&
+                        registrationForm.get('email')?.hasError('email')
+                      "
+                    >
+                      Email is <strong>invalid</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter password"
+                      type="password"
+                      formControlName="password"
+                    />
+                    <mat-error
+                      *ngIf="
+                        registrationForm.get('password')?.hasError('required')
+                      "
+                    >
+                      Password is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-12 col-md-6">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Re-type Password</mat-label>
+                    <input
+                      matInput
+                      placeholder="Enter password"
+                      type="password"
+                      formControlName="confirmPassword"
+                    />
+                    <mat-error
+                      *ngIf="
+                        registrationForm
+                          .get('confirmPassword')
+                          ?.hasError('required')
+                      "
+                    >
+                      Password is <strong>required</strong>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 text-center">
+                  <button mat-raised-button color="primary" class="text-white">
+                    Sign Up
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
