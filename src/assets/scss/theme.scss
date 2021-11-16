@@ -1,0 +1,90 @@
+$ecomm-store-primary: (
+  50: #ffebe4,
+  100: #ffcdbd,
+  200: #ffab91,
+  300: #ff8964,
+  400: #ff7043,
+  500: #ff5722,
+  600: #ff4f1e,
+  700: #ff4619,
+  800: #ff3c14,
+  900: #ff2c0c,
+  A100: #ffffff,
+  A200: #fff7f6,
+  A400: #ffc9c3,
+  A700: #ffb2a9,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+$ecomm-store-accent: (
+  50: #e0f6ff,
+  100: #b3e7ff,
+  200: #80d8ff,
+  300: #4dc8ff,
+  400: #26bcff,
+  500: #00b0ff,
+  600: #00a9ff,
+  700: #00a0ff,
+  800: #0097ff,
+  900: #0087ff,
+  A100: #ffffff,
+  A200: #f2f8ff,
+  A400: #bfddff,
+  A700: #a6d0ff,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #000000,
+    600: #000000,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000,
+  ),
+);
+
+@import "~@angular/material/_theming";
+
+// Include non-theme styles for core.
+@include mat-core();
+
+// Define a theme.
+$custom-primary: mat-palette($ecomm-store-primary);
+$custom-accent: mat-palette($ecomm-store-accent);
+
+$custom-theme: mat-light-theme($custom-primary, $custom-accent);
+
+// Include all theme styles for the components.
+@include angular-material-theme($custom-theme);
+
+// Define a custom typography config that overrides the font-family as well as the
+// `headlines` and `body-1` levels.
+$custom-typography: mat-typography-config(
+  $font-family: "Montserrat, monospace",
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 400),
+);
+
+// Override the typography in the core CSS.
+@include mat-core($custom-typography);
