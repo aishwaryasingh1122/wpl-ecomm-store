@@ -27,9 +27,7 @@ export class UserService {
   constructor(
     private dataService: DataService,
     private secureStorageService: SecureStorageService
-  ) {
-    this.getUserSession().subscribe();
-  }
+  ) {}
 
   login(userLoginParams: UserLoginParams): Observable<boolean> {
     return this.dataService
@@ -38,7 +36,7 @@ export class UserService {
         map((res: HttpResponse<any>) => {
           if (res && res.status == 200) {
             this.secureStorageService.setValue('token', res.body.token);
-            this.userSubject.next(res.body);
+            this.userSubject.next(res.body.user);
           }
           return res && res.status == 200;
         }),

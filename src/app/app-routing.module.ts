@@ -11,7 +11,7 @@ import { UsersModule } from './modules/users/users.module';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: '/products',
     pathMatch: 'full',
   },
   {
@@ -25,7 +25,7 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'account',
+    path: '',
     canActivate: [],
     component: AppLayoutComponent,
     children: [
@@ -45,7 +45,7 @@ const routes: Routes = [
   },
   {
     path: '**',
-    redirectTo: 'login',
+    redirectTo: '/products',
   },
 ];
 

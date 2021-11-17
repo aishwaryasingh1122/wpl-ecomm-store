@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { UserService } from 'src/app/services/user.service';
 
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private toastrService: ToastrService,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -35,6 +37,8 @@ export class LoginComponent implements OnInit {
             'Welcome to E-Comm Store',
             'Login Successful!'
           );
+
+          this.router.navigate(['/account/products']);
         }
       },
       error: (err) => {

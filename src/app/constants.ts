@@ -16,19 +16,19 @@ export const handleHTTPError = (err: HttpErrorResponse) => {
 
 export const USER_ENTITIES: NavItem[] = [
   {
-    path: '/account/products',
+    path: '/products',
     title: 'Products',
     type: 'parent',
     icontype: 'store',
   },
   {
-    path: '/account/orders/details',
+    path: '/orders/details',
     title: 'Order Details',
     type: 'child',
     icontype: 'keyboard_backspace',
   },
   {
-    path: '/account/orders',
+    path: '/orders',
     title: 'Orders',
     type: 'parent',
     icontype: 'receipt',
@@ -37,7 +37,7 @@ export const USER_ENTITIES: NavItem[] = [
 
 export const ADMIN_ENTITIES: NavItem[] = [
   {
-    path: '/account/users',
+    path: '/users',
     title: 'User Management',
     type: 'parent',
     icontype: 'people',
