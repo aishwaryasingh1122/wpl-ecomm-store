@@ -13,8 +13,8 @@
 }
 
 .drawer-content {
-  min-width: 175px !important;
-  width: 60vw !important;
+  min-width: 200px !important;
+  width: 85vw !important;
   max-width: 400px !important;
   background-image: url("../../../assets/img/auth-bg.svg");
   background-size: cover;
@@ -45,10 +45,6 @@ img {
         background-color: transparent;
         outline: none;
       }
-    }
-
-    &:first-child > a {
-      margin: 0 15px;
     }
 
     &:hover > a,
@@ -83,10 +79,9 @@ img {
         left: 15px;
         background-color: rgba(180, 180, 180, 0.3);
       }
-
-      & + li {
-        margin-top: 31px;
-      }
+    }
+    & + li {
+      margin-top: 0.75rem;
     }
   }
 

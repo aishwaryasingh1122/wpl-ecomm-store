@@ -1,20 +1,18 @@
 <mat-drawer-container hasBackdrop="true">
-  <mat-drawer #drawer mode="push" opened>
+  <mat-drawer #drawer mode="push">
     <drawer></drawer>
   </mat-drawer>
   <mat-drawer-content>
     <mat-toolbar color="primary">
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with menu icon"
-        (click)="drawer.open()"
-      >
+      <button mat-icon-button (click)="drawer.open()">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>E-Comm Store</span>
+      <button mat-mini-fab class="nav-icon" (click)="goBack()">
+        <mat-icon>{{ icon }}</mat-icon>
+      </button>
+      <span>{{ title }}</span>
       <span class="example-spacer"></span>
-      <button mat-icon-button class="example-icon">
+      <button mat-icon-button>
         <mat-icon>code</mat-icon>
       </button>
     </mat-toolbar>

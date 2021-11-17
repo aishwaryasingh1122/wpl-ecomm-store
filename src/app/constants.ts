@@ -14,11 +14,30 @@ export const handleHTTPError = (err: HttpErrorResponse) => {
   throw err.error.msg;
 };
 
-export const USER_ENTITIES: NavItem[] = [];
+export const USER_ENTITIES: NavItem[] = [
+  {
+    path: '/account/products',
+    title: 'Products',
+    type: 'parent',
+    icontype: 'store',
+  },
+  {
+    path: '/account/orders/details',
+    title: 'Order Details',
+    type: 'child',
+    icontype: 'keyboard_backspace',
+  },
+  {
+    path: '/account/orders',
+    title: 'Orders',
+    type: 'parent',
+    icontype: 'receipt',
+  },
+];
 
 export const ADMIN_ENTITIES: NavItem[] = [
   {
-    path: '/account/admin/users',
+    path: '/account/users',
     title: 'User Management',
     type: 'parent',
     icontype: 'people',

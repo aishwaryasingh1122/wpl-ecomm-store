@@ -21,18 +21,20 @@
     </div>
   </div>
   <ul class="nav">
-    <li
-      routerLinkActive="active"
-      *ngFor="let entity of entities$ | async"
-      class="nav-item active"
-    >
-      <a
-        [routerLink]="[entity.path]"
-        class="nav-link animate__animated animate__fadeInUp"
+    <ng-container *ngFor="let entity of entities$ | async">
+      <li
+        routerLinkActive="active"
+        class="nav-item"
+        *ngIf="entity.type === 'parent'"
       >
-        <i class="material-icons">{{ entity.icontype }}</i>
-        <p>{{ entity.title }}</p>
-      </a>
-    </li>
+        <a
+          [routerLink]="[entity.path]"
+          class="nav-link animate__animated animate__fadeInUp"
+        >
+          <i class="material-icons">{{ entity.icontype }}</i>
+          <p>{{ entity.title }}</p>
+        </a>
+      </li>
+    </ng-container>
   </ul>
 </div>
