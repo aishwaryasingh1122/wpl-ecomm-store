@@ -28,7 +28,8 @@ export class RegistrationComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {}
@@ -51,7 +52,7 @@ export class RegistrationComponent implements OnInit {
             'Check your email for a verification link.',
             'Registration Sucessful!'
           );
-          this.registrationForm.reset();
+          this.router.navigate(['/login']);
         }
       },
       error: (err) => {

@@ -37,10 +37,23 @@
                 <input
                   matInput
                   placeholder="Enter password"
-                  type="password"
+                  [type]="passwordVisible ? 'text' : 'password'"
                   formControlName="password"
                 />
-                <mat-icon matSuffix>lock</mat-icon>
+                <mat-icon
+                  *ngIf="!passwordVisible"
+                  matSuffix
+                  class="visibility-icon"
+                  (click)="passwordVisible = true"
+                  >visibility</mat-icon
+                >
+                <mat-icon
+                  *ngIf="passwordVisible"
+                  matSuffix
+                  class="visibility-icon"
+                  (click)="passwordVisible = false"
+                  >visibility_off</mat-icon
+                >
                 <mat-error
                   *ngIf="loginForm.get('password')?.hasError('required')"
                 >
