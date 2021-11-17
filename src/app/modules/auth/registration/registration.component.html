@@ -96,6 +96,17 @@
                     >
                       Password is <strong>required</strong>
                     </mat-error>
+                    <mat-error
+                      *ngIf="
+                        registrationForm.get('password')?.hasError('pattern')
+                      "
+                    >
+                      Password must have
+                      <strong
+                        >atleast 8 characters, 1 uppercase, 1 lowercase, 1
+                        numeric and 1 special character</strong
+                      >
+                    </mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col-12 col-md-6">
@@ -106,6 +117,7 @@
                       placeholder="Enter password"
                       type="password"
                       formControlName="confirmPassword"
+                      (focus)="passwordMismatch = false"
                     />
                     <mat-error
                       *ngIf="
@@ -116,12 +128,28 @@
                     >
                       Password is <strong>required</strong>
                     </mat-error>
+                    <mat-error *ngIf="passwordMismatch">
+                      Passwords <strong>do not match.</strong>
+                    </mat-error>
                   </mat-form-field>
                 </div>
               </div>
-              <div class="row">
-                <div class="col-12 text-center">
-                  <button mat-raised-button color="primary" class="text-white">
+              <div class="row mt-2">
+                <div class="col-12" align="center">
+                  <mat-spinner
+                    mode="indeterminate"
+                    color="primary"
+                    [diameter]="30"
+                    *ngIf="showLoader"
+                  ></mat-spinner>
+                  <button
+                    mat-raised-button
+                    *ngIf="!showLoader"
+                    color="primary"
+                    class="text-white"
+                    (click)="registerUser()"
+                    [disabled]="registrationForm.invalid"
+                  >
                     Sign Up
                   </button>
                 </div>

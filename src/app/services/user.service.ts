@@ -35,7 +35,7 @@ export class UserService {
       .pipe(
         map((res: HttpResponse<any>) => {
           if (res && res.status == 200) {
-            this.secureStorageService.setValue('at', res.body.access_token);
+            this.secureStorageService.setValue('token', res.body.token);
             this.userSubject.next(res.body);
           }
           return res && res.status == 200;
