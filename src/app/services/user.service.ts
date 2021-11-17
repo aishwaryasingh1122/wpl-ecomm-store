@@ -7,7 +7,7 @@ import { DataService } from './data.service';
 import { SecureStorageService } from './secure-storage.service';
 
 const guest: User = {
-  _id: '1',
+  _id: 'guest',
   firstName: 'Guest',
   lastName: 'User',
   email: 'guest@domain.com',
@@ -27,7 +27,9 @@ export class UserService {
   constructor(
     private dataService: DataService,
     private secureStorageService: SecureStorageService
-  ) {}
+  ) {
+    this.getUserSession().subscribe();
+  }
 
   login(userLoginParams: UserLoginParams): Observable<boolean> {
     return this.dataService
@@ -64,5 +66,17 @@ export class UserService {
         }),
         catchError(handleHTTPError)
       );
+  }
+
+  getUserSession(): Observable<boolean> {
+    return this.dataService.sendGET(API_CONFIG.USER.GET_SESSION).pipe(
+      map((res: HttpResponse<any>) => {
+        if (res && res.status === 200) {
+          this.userSubject.next(res.body);
+        }
+        return res && res.status === 200;
+      }),
+      catchError(handleHTTPError)
+    );
   }
 }

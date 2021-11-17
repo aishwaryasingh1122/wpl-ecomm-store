@@ -1,0 +1,113 @@
+@import "../../../assets/scss/brand.scss";
+
+@mixin shadow-big-color($color) {
+  // new box shadow optimized for Tablets and Phones
+  box-shadow: 0 4px 20px 0px rgba(0, 0, 0, 0.14),
+    0 7px 10px -5px rgba($color, 0.4);
+}
+
+@mixin set-background-color($color) {
+  background-color: $color;
+  border-radius: 5px;
+  @include shadow-big-color($black-color);
+}
+
+.drawer-content {
+  min-width: 175px !important;
+  width: 60vw !important;
+  max-width: 400px !important;
+  background-image: url("../../../assets/img/auth-bg.svg");
+  background-size: cover;
+  background-position: top center;
+  min-height: 100vh;
+  padding: 1.5rem;
+  color: white;
+}
+
+img {
+  width: 30%;
+}
+
+.nav {
+  margin-top: 15px;
+  display: block;
+
+  .caret {
+    margin-top: 13px;
+    position: absolute;
+    right: 6px;
+  }
+
+  li {
+    > a {
+      &:hover,
+      &:focus {
+        background-color: transparent;
+        outline: none;
+      }
+    }
+
+    &:first-child > a {
+      margin: 0 15px;
+    }
+
+    &:hover > a,
+    & .dropdown-menu a:hover,
+    & .dropdown-menu a:focus,
+    &.active > [data-toggle="collapse"] {
+      background-color: rgba(200, 200, 200, 0.2);
+      color: $black-color;
+      box-shadow: none;
+    }
+
+    &.active {
+      @include set-background-color($white);
+    }
+
+    &.active > a,
+    &.active > a i {
+      color: #3c4858cc;
+    }
+    &.active > a p {
+      color: #3c4858cc;
+    }
+
+    &.separator {
+      margin: 15px 0;
+
+      &:after {
+        width: calc(100% - 30px);
+        content: "";
+        position: absolute;
+        height: 1px;
+        left: 15px;
+        background-color: rgba(180, 180, 180, 0.3);
+      }
+
+      & + li {
+        margin-top: 31px;
+      }
+    }
+  }
+
+  p {
+    margin: 0;
+    line-height: 30px;
+    font-size: 14px;
+    position: relative;
+    display: block;
+    height: auto;
+    white-space: nowrap;
+    color: $white;
+  }
+
+  i {
+    font-size: 24px;
+    float: left;
+    margin-right: 15px;
+    line-height: 30px;
+    width: 30px;
+    text-align: center;
+    color: $white;
+  }
+}

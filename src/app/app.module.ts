@@ -13,9 +13,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { InterceptorService } from './services/interceptor.service';
 import { NgxSpinnerModule } from 'ngx-spinner';
+import { DrawerComponent } from './shared/drawer/drawer.component';
 
 @NgModule({
-  declarations: [AppComponent, AppLayoutComponent, AuthLayoutComponent],
+  declarations: [AppComponent, AppLayoutComponent, AuthLayoutComponent, DrawerComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
