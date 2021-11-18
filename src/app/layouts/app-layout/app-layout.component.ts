@@ -63,4 +63,8 @@ export class AppLayoutComponent implements OnInit {
       window.history.back();
     }
   }
+
+  get isMobileDisplay() {
+    return window.screen.width <= 576;
+  }
 }

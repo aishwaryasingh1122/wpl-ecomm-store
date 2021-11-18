@@ -1,5 +1,5 @@
 <mat-drawer-container>
-  <mat-drawer #drawer mode="side" opened>
+  <mat-drawer #drawer mode="side" [opened]="!isMobileDisplay">
     <drawer></drawer>
   </mat-drawer>
   <mat-drawer-content>
@@ -11,10 +11,6 @@
         <mat-icon>{{ icon }}</mat-icon>
       </button>
       <span>{{ title }}</span>
-      <span class="example-spacer"></span>
-      <button mat-icon-button>
-        <mat-icon>code</mat-icon>
-      </button>
     </mat-toolbar>
     <router-outlet></router-outlet>
   </mat-drawer-content>
