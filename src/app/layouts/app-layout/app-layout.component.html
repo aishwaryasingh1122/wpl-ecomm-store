@@ -1,10 +1,10 @@
-<mat-drawer-container hasBackdrop="true">
-  <mat-drawer #drawer mode="push">
+<mat-drawer-container>
+  <mat-drawer #drawer mode="side" opened>
     <drawer></drawer>
   </mat-drawer>
   <mat-drawer-content>
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.open()">
+      <button mat-icon-button (click)="drawer.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
       <button mat-mini-fab class="nav-icon" (click)="goBack()">
