@@ -1,3 +1,136 @@
 <div class="main-content">
-  <div class="container-fluid">Users</div>
+  <div class="container-fluid">
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Users ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container *ngIf="userList$ | async as userList">
+        <div *ngIf="userList.length > 0; else noUsers">
+          <div class="row">
+            <div class="col-12 text-end mb-2">
+              <button
+                mat-raised-button
+                color="primary"
+                (click)="loadData()"
+                class="text-white"
+              >
+                Refresh
+              </button>
+            </div>
+            <div class="col-12">
+              <div class="card mat-elevation-z2">
+                <div class="card-body">
+                  <h3>Users List</h3>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Role</th>
+                          <th scope="col">Account Verification</th>
+                          <th scope="col">Account Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let user of userList; index as $index">
+                          <th scope="row">{{ $index + 1 }}</th>
+                          <td>{{ user.firstName }} {{ user.lastName }}</td>
+                          <td>{{ user.email }}</td>
+                          <td>
+                            <span
+                              [matMenuTriggerFor]="assignRoleMenu"
+                              class="badge bg-primary pointer"
+                              *ngIf="user.role == 0"
+                              >User</span
+                            >
+                            <span
+                              [matMenuTriggerFor]="assignRoleMenu"
+                              class="badge bg-success pointer"
+                              *ngIf="user.role == 1"
+                              >Admin</span
+                            >
+                            <span class="badge bg-danger" *ngIf="user.role == 2"
+                              >Super User</span
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="badge bg-success"
+                              *ngIf="user.isVerified"
+                              >Completed</span
+                            >
+                            <span
+                              class="badge bg-warning"
+                              *ngIf="!user.isVerified"
+                              >Pending</span
+                            >
+                          </td>
+                          <td>
+                            <span
+                              class="badge bg-success pointer"
+                              *ngIf="user.isActive"
+                              >Active</span
+                            >
+                            <span
+                              class="badge bg-danger pointer"
+                              *ngIf="!user.isActive"
+                              >Disabled</span
+                            >
+                          </td>
+                          <mat-menu #assignRoleMenu="matMenu">
+                            <button
+                              mat-menu-item
+                              (click)="assignUserRole(user, 0)"
+                            >
+                              <mat-icon>person</mat-icon>
+                              <span>User</span>
+                            </button>
+                            <button
+                              mat-menu-item
+                              (click)="assignUserRole(user, 0)"
+                            >
+                              <mat-icon>security</mat-icon>
+                              <span>Admin</span>
+                            </button>
+                          </mat-menu>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noUsers>
+        <div class="row mt-4">
+          <div class="col-12 col-md-8 offset-md-2 text-center">
+            <img
+              src="../../../../../assets/img/empty_list.svg"
+              alt="list-empty"
+              class="empty-list-icon"
+            />
+            <h1>You seem to be lost.</h1>
+            <h3>No users found!</h3>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
 </div>

@@ -3,15 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { UsersRoutingModule } from './users-routing.module';
 import { UsersComponent } from './users.component';
-
+import { MaterialModule } from 'src/app/material.module';
+import { DialogsModule } from '../dialogs/dialogs.module';
 
 @NgModule({
-  declarations: [
-    UsersComponent
-  ],
-  imports: [
-    CommonModule,
-    UsersRoutingModule
-  ]
+  declarations: [UsersComponent],
+  imports: [CommonModule, UsersRoutingModule, MaterialModule, DialogsModule],
 })
-export class UsersModule { }
+export class UsersModule {}

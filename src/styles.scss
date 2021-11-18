@@ -13,6 +13,7 @@ body {
 
 .main-content {
   min-height: 100vh;
+  padding: 1rem;
 }
 
 .avatar {
@@ -43,4 +44,14 @@ mat-form-field {
 
 .toast-error {
   background-color: $brand-danger;
+}
+
+.empty-list-icon {
+  width: 75%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.pointer {
+  cursor: pointer;
 }

@@ -2,9 +2,15 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
 import { API_CONFIG, GUEST_USER, handleHTTPError } from '../constants';
-import { User, UserLoginParams, UserRegisterParams } from '../models/user';
+import {
+  AssignUserRoleParams,
+  User,
+  UserLoginParams,
+  UserRegisterParams,
+} from '../models/user';
 import { DataService } from './data.service';
 import { SecureStorageService } from './secure-storage.service';
+import { find } from 'lodash';
 
 @Injectable({
   providedIn: 'root',
@@ -12,6 +18,9 @@ import { SecureStorageService } from './secure-storage.service';
 export class UserService {
   private userSubject = new BehaviorSubject(GUEST_USER); // Initialize user as guest unless logged in.
   user$: Observable<User> = this.userSubject.asObservable();
+
+  private userListSubect = new BehaviorSubject([]);
+  userList$: Observable<User[]> = this.userListSubect.asObservable();
 
   constructor(
     private dataService: DataService,
@@ -78,5 +87,46 @@ export class UserService {
   signout() {
     this.secureStorageService.clearStorage();
     this.userSubject.next(GUEST_USER);
+  }
+
+  // Admin Services
+  findAllUsers(): Observable<boolean> {
+    return this.dataService.sendGET(API_CONFIG.ADMIN.USERS.GET_ALL).pipe(
+      map((res: HttpResponse<any>) => {
+        if (res && res.status == 200) {
+          this.userListSubect.next(res.body);
+        }
+        return res && res.status == 200;
+      }),
+      catchError(handleHTTPError)
+    );
+  }
+
+  assignUserRole(params: AssignUserRoleParams): Observable<boolean> {
+    return this.dataService
+      .sendPUT(
+        API_CONFIG.ADMIN.USERS.ASSIGN_ROLE.replace(
+          ':userid',
+          params.userId
+        ).replace(':role', params.role + '')
+      )
+      .pipe(
+        map((res: HttpResponse<any>) => {
+          if (res && res.status == 200) {
+            const users = this.userListSubect.value;
+            const userToUpdate: User | undefined = find(
+              users,
+              (user: User) => user._id === params.userId
+            );
+
+            if (userToUpdate) {
+              userToUpdate.role = params.role;
+              this.userListSubect.next([...users]);
+            }
+          }
+          return res && res.status == 200;
+        }),
+        catchError(handleHTTPError)
+      );
   }
 }

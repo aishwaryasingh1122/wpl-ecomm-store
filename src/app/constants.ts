@@ -9,6 +9,12 @@ export const API_CONFIG = {
     VERIFY_ACCOUNT: '/api/user/verify/:userId',
     GET_SESSION: '/api/account/user-session',
   },
+  ADMIN: {
+    USERS: {
+      GET_ALL: '/api/account/admin/users',
+      ASSIGN_ROLE: '/api/account/admin/assign-role/:userId/:role',
+    },
+  },
 };
 
 export const handleHTTPError = (err: HttpErrorResponse) => {

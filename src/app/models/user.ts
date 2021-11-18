@@ -21,3 +21,8 @@ export interface UserRegisterParams {
   password: string;
   confirmPassword: string;
 }
+
+export interface AssignUserRoleParams {
+  userId: string;
+  role: number;
+}
