@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { EMPTY, map, Observable } from 'rxjs';
+import { EMPTY, map, Observable, switchMap } from 'rxjs';
 import { AssignUserRoleParams, User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
 import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
@@ -63,8 +63,9 @@ export class UsersComponent implements OnInit {
     this.dialogRef
       .afterClosed()
       .pipe(
-        map((res) => {
+        switchMap((res) => {
           if (res) {
+            console.log('Confirm', typeof res);
             this.spinner.show();
             return this.userService.assignUserRole({ userId: user._id, role });
           }
@@ -73,6 +74,7 @@ export class UsersComponent implements OnInit {
       )
       .subscribe({
         next: (res: boolean) => {
+          console.log('Server', res);
           this.spinner.hide();
           if (res) {
             this.toastrService.success('', 'User role updated successfully');

@@ -106,7 +106,7 @@ export class UserService {
     return this.dataService
       .sendPUT(
         API_CONFIG.ADMIN.USERS.ASSIGN_ROLE.replace(
-          ':userid',
+          ':userId',
           params.userId
         ).replace(':role', params.role + '')
       )

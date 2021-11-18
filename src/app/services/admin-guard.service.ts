@@ -40,6 +40,6 @@ export class AdminGuardService {
         })
       );
     }
-    return false;
+    return this.router.navigate(['/products']);
   }
 }

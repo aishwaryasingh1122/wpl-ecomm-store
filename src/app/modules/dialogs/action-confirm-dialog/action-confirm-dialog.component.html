@@ -11,12 +11,12 @@
     </div>
   </div>
   <div mat-dialog-actions align="end">
-    <button mat-button mat-dialog-close [mat-dialog-close]>
+    <button mat-button mat-dialog-close [mat-dialog-close]="false">
       {{ cancelText }}
     </button>
     <button
       mat-raised-button
-      color="accent"
+      color="primary"
       type="submit"
       class="text-white"
       [mat-dialog-close]="true"
