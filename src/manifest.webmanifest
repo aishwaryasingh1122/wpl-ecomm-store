@@ -1,6 +1,6 @@
 {
-  "name": "wpl-ecomm-store",
-  "short_name": "wpl-ecomm-store",
+  "name": "E-Comm Store",
+  "short_name": "E-Comm Store",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",
