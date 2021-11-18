@@ -13,6 +13,7 @@ export const API_CONFIG = {
     USERS: {
       GET_ALL: '/api/account/admin/users',
       ASSIGN_ROLE: '/api/account/admin/assign-role/:userId/:role',
+      TOGGLE_ACCOUNT: '/api/account/admin/toggle-account/:userId',
     },
   },
 };

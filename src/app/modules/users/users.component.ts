@@ -65,7 +65,6 @@ export class UsersComponent implements OnInit {
       .pipe(
         switchMap((res) => {
           if (res) {
-            console.log('Confirm', typeof res);
             this.spinner.show();
             return this.userService.assignUserRole({ userId: user._id, role });
           }
@@ -74,10 +73,49 @@ export class UsersComponent implements OnInit {
       )
       .subscribe({
         next: (res: boolean) => {
-          console.log('Server', res);
           this.spinner.hide();
           if (res) {
             this.toastrService.success('', 'User role updated successfully');
+          }
+        },
+        error: (err: string) => {
+          this.spinner.hide();
+          this.toastrService.error(err, 'Something went wrong.');
+        },
+      });
+  }
+
+  toggleUserAccount(user: User) {
+    this.dialogRef = this.dialog.open(ActionConfirmDialogComponent, {
+      width: '550px',
+      closeOnNavigation: true,
+      data: {
+        title: `Confirm account ${
+          user.isActive ? 'deactivation' : 'activation'
+        }`,
+        messageLine1: `Are you sure you want to ${
+          user.isActive ? 'deactivate' : 'activate'
+        } account for ${user.firstName} ${user.lastName} ?`,
+        successText: 'Confirm',
+      },
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((res) => {
+          if (res) {
+            this.spinner.show();
+            return this.userService.toggleAccountStatus(user._id);
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (res: boolean) => {
+          this.spinner.hide();
+          if (res) {
+            this.toastrService.success('', 'User account updated successfully');
           }
         },
         error: (err: string) => {

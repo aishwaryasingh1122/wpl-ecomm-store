@@ -84,11 +84,13 @@
                             <span
                               class="badge bg-success pointer"
                               *ngIf="user.isActive"
+                              (click)="toggleUserAccount(user)"
                               >Active</span
                             >
                             <span
                               class="badge bg-danger pointer"
                               *ngIf="!user.isActive"
+                              (click)="toggleUserAccount(user)"
                               >Disabled</span
                             >
                           </td>

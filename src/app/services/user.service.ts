@@ -129,4 +129,27 @@ export class UserService {
         catchError(handleHTTPError)
       );
   }
+
+  toggleAccountStatus(userId: string) {
+    return this.dataService
+      .sendPUT(API_CONFIG.ADMIN.USERS.TOGGLE_ACCOUNT.replace(':userId', userId))
+      .pipe(
+        map((res: HttpResponse<any>) => {
+          if (res && res.status == 200) {
+            const users = this.userListSubect.value;
+            const userToUpdate: User | undefined = find(
+              users,
+              (user: User) => user._id === userId
+            );
+
+            if (userToUpdate) {
+              userToUpdate.isActive = !userToUpdate.isActive;
+              this.userListSubect.next([...users]);
+            }
+          }
+          return res && res.status == 200;
+        }),
+        catchError(handleHTTPError)
+      );
+  }
 }
