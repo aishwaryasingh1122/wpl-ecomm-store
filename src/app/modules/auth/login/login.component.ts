@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Subscription } from 'rxjs';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -11,6 +12,8 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class LoginComponent implements OnInit {
   passwordVisible = false;
+  redirectUrl: string = '';
+  routeSubscription?: Subscription;
 
   loginForm: FormGroup = new FormGroup({
     email: new FormControl('', [Validators.email, Validators.required]),
@@ -22,10 +25,17 @@ export class LoginComponent implements OnInit {
   constructor(
     private toastrService: ToastrService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.routeSubscription = this.route.queryParams.subscribe((params: any) => {
+      if (params && params.redirect) {
+        this.redirectUrl = params.redirect;
+      }
+    });
+  }
 
   login() {
     this.showLoader = true;
@@ -38,7 +48,7 @@ export class LoginComponent implements OnInit {
             'Login Successful!'
           );
 
-          this.router.navigate(['/account/products']);
+          this.router.navigate([this.redirectUrl || '/products']);
         }
       },
       error: (err) => {

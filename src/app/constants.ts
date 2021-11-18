@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { NavItem } from './models/nav-item';
+import { User } from './models/user';
 
 export const API_CONFIG = {
   USER: {
@@ -43,3 +44,14 @@ export const ADMIN_ENTITIES: NavItem[] = [
     icontype: 'people',
   },
 ];
+
+export const GUEST_USER: User = {
+  _id: 'guest',
+  firstName: 'Guest',
+  lastName: 'User',
+  email: 'guest@domain.com',
+  isActive: false,
+  isVerified: false,
+  role: -1,
+  createdAt: '',
+};

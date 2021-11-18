@@ -1,27 +1,16 @@
 import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
-import { API_CONFIG, handleHTTPError } from '../constants';
+import { API_CONFIG, GUEST_USER, handleHTTPError } from '../constants';
 import { User, UserLoginParams, UserRegisterParams } from '../models/user';
 import { DataService } from './data.service';
 import { SecureStorageService } from './secure-storage.service';
-
-const guest: User = {
-  _id: 'guest',
-  firstName: 'Guest',
-  lastName: 'User',
-  email: 'guest@domain.com',
-  isActive: false,
-  isVerified: false,
-  role: -1,
-  createdAt: '',
-};
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  private userSubject = new BehaviorSubject(guest); // Initialize user as guest unless logged in.
+  private userSubject = new BehaviorSubject(GUEST_USER); // Initialize user as guest unless logged in.
   user$: Observable<User> = this.userSubject.asObservable();
 
   constructor(
@@ -76,5 +65,18 @@ export class UserService {
       }),
       catchError(handleHTTPError)
     );
+  }
+
+  get isAuthenticated(): boolean {
+    return (
+      this.secureStorageService.getValue('token') &&
+      this.secureStorageService.getValue('token') != null &&
+      this.secureStorageService.getValue('token') != undefined
+    );
+  }
+
+  signout() {
+    this.secureStorageService.clearStorage();
+    this.userSubject.next(GUEST_USER);
   }
 }

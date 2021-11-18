@@ -11,7 +11,7 @@ import { UserService } from './user.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuardService {
+export class RestoreSessionService {
   constructor(private userService: UserService, private router: Router) {}
 
   canActivate(
@@ -22,11 +22,8 @@ export class AuthGuardService {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    if (!this.userService.isAuthenticated) {
-      this.router.navigate(['/login'], {
-        queryParams: { redirect: state.url },
-      });
-      return false;
+    if (this.userService.isAuthenticated) {
+      return this.userService.getUserSession();
     }
     return true;
   }

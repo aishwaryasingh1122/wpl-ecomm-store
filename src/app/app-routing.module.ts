@@ -7,6 +7,9 @@ import { AuthModule } from './modules/auth/auth.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ProductsModule } from './modules/products/products.module';
 import { UsersModule } from './modules/users/users.module';
+import { AdminGuardService } from './services/admin-guard.service';
+import { AuthGuardService } from './services/auth-guard.service';
+import { RestoreSessionService } from './services/restore-session.service';
 
 const routes: Routes = [
   {
@@ -32,14 +35,21 @@ const routes: Routes = [
       {
         path: 'users',
         loadChildren: () => UsersModule,
+        canActivate: [
+          AuthGuardService,
+          RestoreSessionService,
+          AdminGuardService,
+        ],
       },
       {
         path: 'products',
         loadChildren: () => ProductsModule,
+        canActivate: [RestoreSessionService],
       },
       {
         path: 'orders',
         loadChildren: () => OrdersModule,
+        canActivate: [AuthGuardService, RestoreSessionService],
       },
     ],
   },
