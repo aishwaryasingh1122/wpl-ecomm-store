@@ -1,5 +1,9 @@
-<mat-drawer-container>
-  <mat-drawer #drawer mode="side" [opened]="!isMobileDisplay">
+<mat-drawer-container [hasBackdrop]="isMobileDisplay">
+  <mat-drawer
+    #drawer
+    [mode]="isMobileDisplay ? 'over' : 'side'"
+    [opened]="!isMobileDisplay"
+  >
     <drawer></drawer>
   </mat-drawer>
   <mat-drawer-content>
