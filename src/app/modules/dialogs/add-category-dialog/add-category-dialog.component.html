@@ -1,0 +1,29 @@
+<h4 mat-dialog-title>Add new product category</h4>
+<div>
+  <form [formGroup]="newCategoryForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Product Category</mat-label>
+      <input
+        matInput
+        placeholder="Enter product category"
+        formControlName="title"
+      />
+      <mat-error *ngIf="newCategoryForm.get('title')?.hasError('required')">
+        Title is <strong>required.</strong>
+      </mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close mat-dialog-close>Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="text-white"
+        [mat-dialog-close]="newCategoryForm.value"
+        [disabled]="newCategoryForm.invalid"
+      >
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

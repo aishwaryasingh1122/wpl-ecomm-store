@@ -75,7 +75,12 @@
             <h1>Nothing to see here.</h1>
             <h3>
               Click on
-              <button mat-mini-fab color="primary" class="text-white">
+              <button
+                mat-mini-fab
+                color="primary"
+                class="text-white"
+                (click)="addNewCategory()"
+              >
                 <mat-icon>add</mat-icon>
               </button>
               to add new category.
@@ -84,5 +89,13 @@
         </div>
       </ng-template>
     </ng-template>
+    <button
+      mat-fab
+      class="fab text-white"
+      color="primary"
+      (click)="addNewCategory()"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
   </div>
 </div>

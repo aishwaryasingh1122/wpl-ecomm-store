@@ -6,6 +6,7 @@ import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ProductCategory } from 'src/app/models/product-category';
 import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
+import { AddCategoryDialogComponent } from '../dialogs/add-category-dialog/add-category-dialog.component';
 
 @Component({
   selector: 'product-categories',
@@ -78,6 +79,40 @@ export class ProductCategoriesComponent implements OnInit {
             this.toastrService.success(
               '',
               'Product category removed successfully'
+            );
+          }
+        },
+        error: (err: string) => {
+          this.spinner.hide();
+          this.toastrService.error(err, 'Something went wrong.');
+        },
+      });
+  }
+
+  addNewCategory() {
+    this.dialogRef = this.dialog.open(AddCategoryDialogComponent, {
+      width: '550px',
+      closeOnNavigation: true,
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((category: { title: string }) => {
+          if (category) {
+            this.spinner.show();
+            return this.categoriesService.addProductCategory(category.title);
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (res: boolean) => {
+          this.spinner.hide();
+          if (res) {
+            this.toastrService.success(
+              '',
+              'Product category added successfully'
             );
           }
         },
