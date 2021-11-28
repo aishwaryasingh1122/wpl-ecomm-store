@@ -9,6 +9,9 @@ export const API_CONFIG = {
     VERIFY_ACCOUNT: '/api/user/verify/:userId',
     GET_SESSION: '/api/account/user-session',
   },
+  PRODUCTS: {
+    GET_PRODUCTS: '',
+  },
   ADMIN: {
     USERS: {
       GET_ALL: '/api/account/admin/users',
@@ -19,6 +22,11 @@ export const API_CONFIG = {
       GET_ALL: '/api/account/admin/product-category',
       ADD_CATEGORY: '/api/account/admin/product-category',
       REMOVE_CATEGORY: '/api/account/admin/product-category/:categoryId',
+    },
+    PRODUCTS: {
+      ADD_PRODUCT: '',
+      EDIT_PRODUCT: '',
+      DELETE_PRODUCT: '',
     },
   },
 };

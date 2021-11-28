@@ -4,10 +4,11 @@ import { ActionConfirmDialogComponent } from './action-confirm-dialog/action-con
 import { MaterialModule } from 'src/app/material.module';
 import { AddCategoryDialogComponent } from './add-category-dialog/add-category-dialog.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { EditImageDialogComponent } from './edit-image-dialog/edit-image-dialog.component';
 
 @NgModule({
-  declarations: [ActionConfirmDialogComponent, AddCategoryDialogComponent],
+  declarations: [ActionConfirmDialogComponent, AddCategoryDialogComponent, EditImageDialogComponent],
   imports: [CommonModule, MaterialModule, FormsModule, ReactiveFormsModule],
-  exports: [ActionConfirmDialogComponent, AddCategoryDialogComponent],
+  exports: [ActionConfirmDialogComponent, AddCategoryDialogComponent, EditImageDialogComponent],
 })
 export class DialogsModule {}
