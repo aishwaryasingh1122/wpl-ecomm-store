@@ -15,6 +15,11 @@ export const API_CONFIG = {
       ASSIGN_ROLE: '/api/account/admin/assign-role/:userId/:role',
       TOGGLE_ACCOUNT: '/api/account/admin/toggle-account/:userId',
     },
+    CATEGORIES: {
+      GET_ALL: '/api/account/admin/product-category',
+      ADD_CATEGORY: '/api/account/admin/product-category',
+      REMOVE_CATEGORY: '/api/account/admin/product-category/:categoryId',
+    },
   },
 };
 

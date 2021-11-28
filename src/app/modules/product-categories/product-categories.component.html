@@ -1,3 +1,88 @@
 <div class="main-content">
-  <div class="container-fluid">Categories</div>
+  <div class="container-fluid">
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Categories ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container *ngIf="categories$ | async as categories">
+        <div *ngIf="categories.length > 0; else noCategories">
+          <div class="row">
+            <div class="col-12">
+              <div class="card mat-elevation-z2">
+                <div class="card-body">
+                  <h3>Product Categories</h3>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Title</th>
+                          <th scope="col">Added On</th>
+                          <th scope="col">Action</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let category of categories; index as $index"
+                        >
+                          <th scope="row">{{ $index + 1 }}</th>
+                          <td>{{ category.title | titlecase }}</td>
+                          <td>
+                            {{
+                              category.createdAt | amDateFormat: "MMM-DD-YYYY"
+                            }}
+                          </td>
+                          <td>
+                            <button
+                              mat-icon-button
+                              color="warn"
+                              (click)="removeProductCategory(category)"
+                            >
+                              <mat-icon>delete</mat-icon>
+                            </button>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noCategories>
+        <div class="row mt-4">
+          <div class="col-12 col-md-8 offset-md-2 text-center">
+            <img
+              src="../../../../../assets/img/empty_list.svg"
+              alt="list-empty"
+              class="empty-list-icon"
+            />
+            <h1>Nothing to see here.</h1>
+            <h3>
+              Click on
+              <button mat-mini-fab color="primary" class="text-white">
+                <mat-icon>add</mat-icon>
+              </button>
+              to add new category.
+            </h3>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
+  </div>
 </div>
