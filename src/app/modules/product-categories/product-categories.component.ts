@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -17,6 +18,8 @@ export class ProductCategoriesComponent implements OnInit {
   categories$: Observable<ProductCategory[]>;
   showLoader = true;
   dialogRef: any = null;
+
+  showDeletedCategories: FormControl = new FormControl(false, []);
 
   constructor(
     private toastrService: ToastrService,

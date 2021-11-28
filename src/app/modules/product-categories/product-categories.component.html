@@ -17,7 +17,22 @@
     </ng-template>
     <ng-template #list>
       <ng-container *ngIf="categories$ | async as categories">
-        <div *ngIf="categories.length > 0; else noCategories">
+        <div class="row mb-2" *ngIf="categories && categories.length > 0">
+          <div class="col-12" align="end">
+            <mat-slide-toggle
+              color="primary"
+              [formControl]="showDeletedCategories"
+              >Show deleted categories</mat-slide-toggle
+            >
+          </div>
+        </div>
+        <div
+          *ngIf="
+            ((categories | filterDeleted: showDeletedCategories.value) || [])
+              .length > 0;
+            else noCategories
+          "
+        >
           <div class="row">
             <div class="col-12">
               <div class="card mat-elevation-z2">
@@ -36,11 +51,22 @@
                       </thead>
                       <tbody>
                         <tr
-                          *ngFor="let category of categories; index as $index"
+                          *ngFor="
+                            let category of categories
+                              | filterDeleted: showDeletedCategories.value;
+                            index as $index
+                          "
                         >
-                          <th scope="row">{{ $index + 1 }}</th>
-                          <td>{{ category.title | titlecase }}</td>
-                          <td>
+                          <th
+                            scope="row"
+                            [ngClass]="{ 'text-muted': category.isDeleted }"
+                          >
+                            {{ $index + 1 }}
+                          </th>
+                          <td [ngClass]="{ 'text-muted': category.isDeleted }">
+                            {{ category.title | titlecase }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': category.isDeleted }">
                             {{
                               category.createdAt | amDateFormat: "MMM-DD-YYYY"
                             }}
