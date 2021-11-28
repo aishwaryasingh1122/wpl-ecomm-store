@@ -61,6 +61,12 @@ export const ADMIN_ENTITIES: NavItem[] = [
     type: 'parent',
     icontype: 'category',
   },
+  {
+    path: '/products/manage',
+    title: 'Products Management',
+    type: 'parent',
+    icontype: 'store',
+  },
 ];
 
 export const GUEST_USER: User = {
