@@ -2,8 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { FilePickerDirective } from 'ngx-file-helpers';
+import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { AddProductParams } from 'src/app/models/product';
 import { ProductCategory } from 'src/app/models/product-category';
 import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ProductsService } from 'src/app/services/products.service';
@@ -17,7 +19,8 @@ import { EditImageDialogComponent } from '../../dialogs/edit-image-dialog/edit-i
 export class ManageProductsComponent implements OnInit {
   categories$: Observable<ProductCategory[]>;
   showLoader = true;
-  profilePicture: any;
+  productImage: any;
+  imageFileName: string = '';
   dialogRef: any;
 
   @ViewChild(FilePickerDirective) private filePicker: any;
@@ -28,7 +31,6 @@ export class ManageProductsComponent implements OnInit {
     unit: new FormControl('', [Validators.required]),
     rate: new FormControl('', [Validators.required]),
     category: new FormControl('', [Validators.required]),
-    imageData: new FormControl('', [Validators.required]),
     quantity: new FormControl('', [Validators.required]),
     bufferQuantity: new FormControl('', [Validators.required]),
   });
@@ -36,7 +38,8 @@ export class ManageProductsComponent implements OnInit {
     private productsService: ProductsService,
     private categoriesService: ProductCategoriesService,
     private toastrService: ToastrService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private spinner: NgxSpinnerService
   ) {
     this.categories$ = this.categoriesService.categories$;
   }
@@ -65,6 +68,7 @@ export class ManageProductsComponent implements OnInit {
   }
 
   getSelectedImage($event: any) {
+    console.log('Image', $event.underlyingFile.name);
     this.dialogRef = this.dialog.open(EditImageDialogComponent, {
       width: '600px',
       data: {
@@ -74,8 +78,42 @@ export class ManageProductsComponent implements OnInit {
     this.filePicker.reset();
     this.dialogRef.afterClosed().subscribe((image: any) => {
       if (image != undefined) {
-        this.profilePicture = image;
+        this.productImage = image;
+        this.imageFileName = $event.underlyingFile.name;
       }
+    });
+  }
+
+  submitProduct() {
+    const newProductData: AddProductParams = this.newProductForm.value;
+    newProductData.imgData = this.productImage.base64;
+    newProductData.fileName = this.imageFileName;
+
+    if (!newProductData.imgData || newProductData.fileName) {
+      this.toastrService.error(
+        'Please select a product image. Image required.'
+      );
+
+      return;
+    }
+
+    this.spinner.show();
+    this.productsService.addNewProduct(newProductData).subscribe({
+      next: (res: boolean) => {
+        this.spinner.hide();
+        if (res) {
+          this.toastrService.success('New Product Added Successfully!');
+        } else {
+          this.toastrService.error(
+            'Failed to add new product.',
+            'Something went wrong. Try again!'
+          );
+        }
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.toastrService.error(err, 'Something went wrong. Try again!');
+      },
     });
   }
 }

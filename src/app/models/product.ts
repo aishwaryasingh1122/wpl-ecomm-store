@@ -15,7 +15,8 @@ export interface AddProductParams {
   name: string;
   weight: number;
   unit: string;
-  ragte: number;
+  rate: number;
   category: string;
   imgData: string;
+  fileName: string;
 }

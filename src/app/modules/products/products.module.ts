@@ -3,22 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { ProductsRoutingModule } from './products-routing.module';
 import { ProductsComponent } from './products.component';
-import { ManageProductsComponent } from './manage-products/manage-products.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from 'src/app/material.module';
-import { ProductCategoriesModule } from '../product-categories/product-categories.module';
-import { NgxFileHelpersModule } from 'ngx-file-helpers';
+import { ManageProductsComponent } from '../product-management/manage-products/manage-products.component';
 
 @NgModule({
   declarations: [ProductsComponent, ManageProductsComponent],
-  imports: [
-    CommonModule,
-    ProductsRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MaterialModule,
-    ProductCategoriesModule,
-    NgxFileHelpersModule,
-  ],
+  imports: [CommonModule, ProductsRoutingModule],
 })
 export class ProductsModule {}

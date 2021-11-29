@@ -149,22 +149,34 @@
                       <img
                         class="img-thumbnail"
                         [src]="
-                          profilePicture?.base64 ||
+                          productImage?.base64 ||
                           '../../../../assets/img/product-placeholder.png'
                         "
                         alt="product placeholder img"
                       />
                       <button
-                        mat-raised-button
+                        mat-button
                         ngxFilePicker
                         accept="image/*"
                         (filePick)="getSelectedImage($event)"
                         color="primary"
-                        class="text-white mt-3"
+                        class="my-3"
                       >
                         Add Product Image
                       </button>
                     </div>
+                  </div>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="text-white mt-3"
+                    >
+                      Add Product
+                    </button>
                   </div>
                 </div>
               </form>

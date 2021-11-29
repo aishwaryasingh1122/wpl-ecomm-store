@@ -70,10 +70,16 @@ export const ADMIN_ENTITIES: NavItem[] = [
     icontype: 'category',
   },
   {
-    path: '/products/manage',
+    path: '/product-management',
     title: 'Products Management',
     type: 'parent',
     icontype: 'store',
+  },
+  {
+    path: '/product-management/modify',
+    title: 'Products Management',
+    type: 'child',
+    icontype: 'keyboard_backspace',
   },
 ];
 

@@ -30,7 +30,6 @@ export class EditImageDialogComponent implements OnInit {
   }
 
   loadImageFailed() {
-    console.log('Image load failed');
     this.toastrService.error(
       'Failed To Load Image. Try again!',
       'Something went wrong'
