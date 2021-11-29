@@ -4,10 +4,17 @@
 
 .mat-toolbar.mat-primary {
   color: white;
+  position: fixed;
+  z-index: 3;
 }
 
 .nav-icon {
   color: #3c4858cc;
   background-color: white;
   margin: 0 0.5rem 0 1rem;
+}
+
+.mat-drawer {
+  position: fixed;
+  overflow: scroll;
 }

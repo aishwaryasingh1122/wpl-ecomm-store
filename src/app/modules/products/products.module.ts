@@ -6,7 +6,7 @@ import { ProductsComponent } from './products.component';
 import { ManageProductsComponent } from '../product-management/manage-products/manage-products.component';
 
 @NgModule({
-  declarations: [ProductsComponent, ManageProductsComponent],
+  declarations: [ProductsComponent],
   imports: [CommonModule, ProductsRoutingModule],
 })
 export class ProductsModule {}

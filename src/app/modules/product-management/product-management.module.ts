@@ -7,11 +7,10 @@ import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import { MaterialModule } from 'src/app/material.module';
 import { ProductCategoriesModule } from '../product-categories/product-categories.module';
 import { ProductManagementComponent } from './product-management.component';
+import { ManageProductsComponent } from './manage-products/manage-products.component';
 
 @NgModule({
-  declarations: [
-    ProductManagementComponent
-  ],
+  declarations: [ProductManagementComponent, ManageProductsComponent],
   imports: [
     CommonModule,
     ProductManagementRoutingModule,
