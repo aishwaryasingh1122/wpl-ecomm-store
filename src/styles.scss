@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~animate.css/animate.min";
 @import "./assets/scss/brand";
+@import "./assets/scss/tooltip";
 
 html,
 body {
@@ -13,7 +14,7 @@ body {
 
 .main-content {
   min-height: 100vh;
-  padding: 1rem;
+  padding: 0 1rem;
   margin-top: 5rem;
 }
 
@@ -59,6 +60,6 @@ mat-form-field {
 
 .fab {
   position: fixed !important;
-  bottom: 7rem;
+  bottom: 5rem;
   right: 2rem;
 }

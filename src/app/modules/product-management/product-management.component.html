@@ -1,3 +1,15 @@
 <div class="main-content">
-  <div class="container-fluid">Manage Products</div>
+  <div class="container-fluid">
+    Manage Products
+    <button
+      mat-fab
+      class="fab text-white"
+      color="primary"
+      [routerLink]="['/product-management/modify']"
+      matTooltip="Add New Product"
+      matTooltipPosition="before"
+    >
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>
