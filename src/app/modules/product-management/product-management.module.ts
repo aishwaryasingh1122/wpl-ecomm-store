@@ -10,6 +10,7 @@ import { ProductManagementComponent } from './product-management.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { MomentModule } from 'ngx-moment';
+import { DialogsModule } from '../dialogs/dialogs.module';
 
 @NgModule({
   declarations: [ProductManagementComponent, ManageProductsComponent],
@@ -23,6 +24,7 @@ import { MomentModule } from 'ngx-moment';
     NgxFileHelpersModule,
     PipesModule,
     MomentModule,
+    DialogsModule,
   ],
 })
 export class ProductManagementModule {}

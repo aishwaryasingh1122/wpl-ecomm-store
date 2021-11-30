@@ -3,9 +3,10 @@ import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { EMPTY, Observable, switchMap } from 'rxjs';
 import { Product } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
+import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
 
 @Component({
   selector: 'product-management',
@@ -49,5 +50,48 @@ export class ProductManagementComponent implements OnInit {
         this.toastrService.error(err, 'Something went wrong');
       },
     });
+  }
+
+  toggleProductAvailability(product: Product) {
+    this.dialogRef = this.dialog.open(ActionConfirmDialogComponent, {
+      width: '550px',
+      closeOnNavigation: true,
+      data: {
+        title: `Confirm ${product.isDeleted ? 'restore' : 'remove'} product`,
+        messageLine1: `Are you sure you want to ${
+          product.isDeleted ? 'restore' : 'remove'
+        } ${product.name} ?`,
+        successText: `${product.isDeleted ? 'Restore' : 'Remove'}`,
+      },
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((res: boolean) => {
+          if (res) {
+            this.spinner.show();
+            return this.productsService.toggleProductAvailability(product._id);
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (res: boolean) => {
+          this.spinner.hide();
+          if (res) {
+            this.toastrService.success(
+              '',
+              `Product ${
+                product.isDeleted ? 'removed' : 'restored'
+              } successfully!`
+            );
+          }
+        },
+        error: (err: string) => {
+          this.spinner.hide();
+          this.toastrService.error(err, 'Something went wrong.');
+        },
+      });
   }
 }

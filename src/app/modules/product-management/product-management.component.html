@@ -77,6 +77,7 @@
                               [src]="product.imageURL"
                               [alt]="product.name"
                               class="product-image avatar"
+                              [ngClass]="{ 'img-muted': product.isDeleted }"
                             />
                           </td>
                           <td [ngClass]="{ 'text-muted': product.isDeleted }">
@@ -93,13 +94,15 @@
                           </td>
                           <td>
                             <span
-                              class="badge bg-success"
+                              class="badge bg-success pointer"
                               *ngIf="!product.isDeleted"
+                              (click)="toggleProductAvailability(product)"
                               >Available</span
                             >
                             <span
-                              class="badge bg-danger"
+                              class="badge bg-danger pointer"
                               *ngIf="product.isDeleted"
+                              (click)="toggleProductAvailability(product)"
                               >Removed</span
                             >
                           </td>

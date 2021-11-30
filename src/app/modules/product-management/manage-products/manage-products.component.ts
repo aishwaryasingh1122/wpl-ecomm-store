@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { FilePickerDirective } from 'ngx-file-helpers';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
@@ -39,7 +40,8 @@ export class ManageProductsComponent implements OnInit {
     private categoriesService: ProductCategoriesService,
     private toastrService: ToastrService,
     private dialog: MatDialog,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.categories$ = this.categoriesService.categories$;
   }
@@ -88,8 +90,9 @@ export class ManageProductsComponent implements OnInit {
     const newProductData: AddProductParams = this.newProductForm.value;
     newProductData.imgData = this.productImage.base64;
     newProductData.fileName = this.imageFileName;
+    console.log('IMage', newProductData);
 
-    if (!newProductData.imgData || newProductData.fileName) {
+    if (!newProductData.imgData || !newProductData.fileName) {
       this.toastrService.error(
         'Please select a product image. Image required.'
       );
@@ -103,6 +106,7 @@ export class ManageProductsComponent implements OnInit {
         this.spinner.hide();
         if (res) {
           this.toastrService.success('New Product Added Successfully!');
+          this.router.navigate(['/product-management']);
         } else {
           this.toastrService.error(
             'Failed to add new product.',
