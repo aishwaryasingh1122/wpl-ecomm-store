@@ -4,9 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, Observable, switchMap } from 'rxjs';
-import { Product } from 'src/app/models/product';
+import { Product, UpdateQuantityParams } from 'src/app/models/product';
 import { ProductsService } from 'src/app/services/products.service';
 import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
+import { UpdateQuantityDialogComponent } from '../dialogs/update-quantity-dialog/update-quantity-dialog.component';
 
 @Component({
   selector: 'product-management',
@@ -85,6 +86,47 @@ export class ProductManagementComponent implements OnInit {
               `Product ${
                 product.isDeleted ? 'removed' : 'restored'
               } successfully!`
+            );
+          }
+        },
+        error: (err: string) => {
+          this.spinner.hide();
+          this.toastrService.error(err, 'Something went wrong.');
+        },
+      });
+  }
+
+  updateProductQuantity(product: Product) {
+    this.dialogRef = this.dialog.open(UpdateQuantityDialogComponent, {
+      width: '550px',
+      closeOnNavigation: true,
+      data: {
+        product,
+      },
+    });
+
+    this.dialogRef
+      .afterClosed()
+      .pipe(
+        switchMap((res: { quantity: number; bufferQuantity: number }) => {
+          if (res) {
+            this.spinner.show();
+            const params: UpdateQuantityParams = {
+              productId: product._id,
+              ...res,
+            };
+            return this.productsService.updateProductQuantity(params);
+          }
+          return EMPTY;
+        })
+      )
+      .subscribe({
+        next: (res: boolean) => {
+          this.spinner.hide();
+          if (res) {
+            this.toastrService.success(
+              '',
+              `Product quantities updated successfully!`
             );
           }
         },

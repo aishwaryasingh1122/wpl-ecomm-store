@@ -1,0 +1,46 @@
+<h4 mat-dialog-title>Update quantities for {{ product.name }}</h4>
+<div>
+  <form [formGroup]="updateQuantityForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Product Quantity</mat-label>
+      <input
+        matInput
+        placeholder="Enter product quantity"
+        formControlName="quantity"
+        type="number"
+      />
+      <mat-error
+        *ngIf="updateQuantityForm.get('quantity')?.hasError('required')"
+      >
+        Quantity is <strong>required.</strong>
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Buffer Quantity</mat-label>
+      <input
+        matInput
+        placeholder="Enter buffer quantity"
+        formControlName="bufferQuantity"
+        type="number"
+      />
+      <mat-error
+        *ngIf="updateQuantityForm.get('bufferQuantity')?.hasError('required')"
+      >
+        Buffer Quantity is <strong>required.</strong>
+      </mat-error>
+    </mat-form-field>
+    <div mat-dialog-actions align="end">
+      <button mat-button mat-dialog-close mat-dialog-close>Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        class="text-white"
+        [mat-dialog-close]="updateQuantityForm.value"
+        [disabled]="updateQuantityForm.invalid"
+      >
+        Update
+      </button>
+    </div>
+  </form>
+</div>

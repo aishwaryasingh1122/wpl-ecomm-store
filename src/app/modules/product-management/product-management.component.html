@@ -106,10 +106,18 @@
                               >Removed</span
                             >
                           </td>
-                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                          <td
+                            class="pointer"
+                            [ngClass]="{ 'text-muted': product.isDeleted }"
+                            (click)="updateProductQuantity(product)"
+                          >
                             {{ product.quantity }}
                           </td>
-                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                          <td
+                            class="pointer"
+                            [ngClass]="{ 'text-muted': product.isDeleted }"
+                            (click)="updateProductQuantity(product)"
+                          >
                             {{ product.bufferQuantity }}
                           </td>
                           <td [ngClass]="{ 'text-muted': product.isDeleted }">

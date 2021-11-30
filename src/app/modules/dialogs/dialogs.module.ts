@@ -6,12 +6,14 @@ import { AddCategoryDialogComponent } from './add-category-dialog/add-category-d
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditImageDialogComponent } from './edit-image-dialog/edit-image-dialog.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { UpdateQuantityDialogComponent } from './update-quantity-dialog/update-quantity-dialog.component';
 
 @NgModule({
   declarations: [
     ActionConfirmDialogComponent,
     AddCategoryDialogComponent,
     EditImageDialogComponent,
+    UpdateQuantityDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -24,6 +26,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     ActionConfirmDialogComponent,
     AddCategoryDialogComponent,
     EditImageDialogComponent,
+    UpdateQuantityDialogComponent,
   ],
 })
 export class DialogsModule {}
