@@ -1,6 +1,156 @@
 <div class="main-content">
   <div class="container-fluid">
-    Manage Products
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Products ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container *ngIf="products$ | async as products">
+        <div class="row mb-2" *ngIf="products && products.length > 0">
+          <div class="col-12" align="end">
+            <mat-slide-toggle
+              color="primary"
+              [formControl]="showDeletedProducts"
+              >Show deleted products</mat-slide-toggle
+            >
+          </div>
+        </div>
+        <div
+          *ngIf="
+            (
+              (products | filterDeletedProducts: showDeletedProducts.value) ||
+              []
+            ).length > 0;
+            else noCategories
+          "
+        >
+          <div class="row">
+            <div class="col-12">
+              <div class="card mat-elevation-z2">
+                <div class="card-body">
+                  <h3>Products</h3>
+
+                  <div class="table-responsive">
+                    <table class="table table-striped">
+                      <thead>
+                        <tr>
+                          <th scope="col">#</th>
+                          <th scope="col">Image</th>
+                          <th scope="col">Name</th>
+                          <th scope="col">Weight</th>
+                          <th scope="col">Rate</th>
+                          <th scope="col">Category</th>
+                          <th scope="col">Status</th>
+                          <th scope="col">Quantity</th>
+                          <th scope="col">Buffer Quantity</th>
+                          <th scope="col">Date Added</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="
+                            let product of products
+                              | filterDeletedProducts
+                                : showDeletedProducts.value;
+                            index as $index
+                          "
+                        >
+                          <th
+                            scope="row"
+                            [ngClass]="{ 'text-muted': product.isDeleted }"
+                          >
+                            {{ $index + 1 }}
+                          </th>
+                          <td>
+                            <img
+                              [src]="product.imageURL"
+                              [alt]="product.name"
+                              class="product-image avatar"
+                            />
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.name | titlecase }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.weight }} {{ product.unit }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.rate | currency }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.category.title | titlecase }}
+                          </td>
+                          <td>
+                            <span
+                              class="badge bg-success"
+                              *ngIf="!product.isDeleted"
+                              >Available</span
+                            >
+                            <span
+                              class="badge bg-danger"
+                              *ngIf="product.isDeleted"
+                              >Removed</span
+                            >
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.quantity }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{ product.bufferQuantity }}
+                          </td>
+                          <td [ngClass]="{ 'text-muted': product.isDeleted }">
+                            {{
+                              product.createdAt | amDateFormat: "MMM-DD-YYYY"
+                            }}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+      <ng-template #noCategories>
+        <div class="row mt-4">
+          <div class="col-12 col-md-8 offset-md-2 text-center">
+            <img
+              src="../../../../../assets/img/empty_list.svg"
+              alt="list-empty"
+              class="empty-list-icon"
+            />
+            <h1>Nothing to see here.</h1>
+            <h3>
+              Click on
+              <button
+                mat-fab-mini
+                class="fab text-white"
+                color="primary"
+                [routerLink]="['/product-management/modify']"
+                matTooltip="Add New Product"
+                matTooltipPosition="before"
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+              to add new category.
+            </h3>
+          </div>
+        </div>
+      </ng-template>
+    </ng-template>
     <button
       mat-fab
       class="fab text-white"

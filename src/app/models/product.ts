@@ -8,7 +8,7 @@ export interface Product {
   rate: number;
   category: ProductCategory;
   createdAt: string;
-  imageUrl: string;
+  imageURL: string;
   isDeleted: boolean;
   quantity: number;
   bufferQuantity: number;

@@ -8,6 +8,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { ProductCategoriesModule } from '../product-categories/product-categories.module';
 import { ProductManagementComponent } from './product-management.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
+import { PipesModule } from '../pipes/pipes.module';
+import { MomentModule } from 'ngx-moment';
 
 @NgModule({
   declarations: [ProductManagementComponent, ManageProductsComponent],
@@ -19,6 +21,8 @@ import { ManageProductsComponent } from './manage-products/manage-products.compo
     MaterialModule,
     ProductCategoriesModule,
     NgxFileHelpersModule,
+    PipesModule,
+    MomentModule,
   ],
 })
 export class ProductManagementModule {}
