@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   ActivatedRouteSnapshot,
@@ -5,7 +6,7 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { EMPTY, first, map, Observable, of, switchMap } from 'rxjs';
+import { catchError, EMPTY, first, map, Observable, of, switchMap } from 'rxjs';
 import { GUEST_USER } from '../constants';
 import { User } from '../models/user';
 import { UserService } from './user.service';

@@ -1,6 +1,13 @@
-import { HttpResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable, throwError } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  map,
+  Observable,
+  of,
+  throwError,
+} from 'rxjs';
 import { API_CONFIG, GUEST_USER, handleHTTPError } from '../constants';
 import {
   AssignUserRoleParams,
@@ -11,6 +18,7 @@ import {
 import { DataService } from './data.service';
 import { SecureStorageService } from './secure-storage.service';
 import { find } from 'lodash';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -24,6 +32,7 @@ export class UserService {
 
   constructor(
     private dataService: DataService,
+    private router: Router,
     private secureStorageService: SecureStorageService
   ) {}
 
@@ -72,7 +81,13 @@ export class UserService {
         }
         return res && res.status === 200;
       }),
-      catchError(handleHTTPError)
+      catchError((err: HttpErrorResponse) => {
+        if (err.status == 401) {
+          this.signout();
+          this.router.navigate(['/products']);
+        }
+        throw err.error.message;
+      })
     );
   }
 

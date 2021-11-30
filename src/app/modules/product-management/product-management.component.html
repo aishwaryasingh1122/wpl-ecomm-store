@@ -1,4 +1,4 @@
-<div class="main-content">
+<div class="main-content animate__animated animate__fadeIn">
   <div class="container-fluid">
     <div *ngIf="showLoader === true; then loader; else list"></div>
     <ng-template #loader>
@@ -32,10 +32,10 @@
               (products | filterDeletedProducts: showDeletedProducts.value) ||
               []
             ).length > 0;
-            else noCategories
+            else noProducts
           "
         >
-          <div class="row">
+          <div class="row animate__animated animate__fadeIn">
             <div class="col-12">
               <div class="card mat-elevation-z2">
                 <div class="card-body">
@@ -135,7 +135,7 @@
           </div>
         </div>
       </ng-container>
-      <ng-template #noCategories>
+      <ng-template #noProducts>
         <div class="row mt-4">
           <div class="col-12 col-md-8 offset-md-2 text-center">
             <img

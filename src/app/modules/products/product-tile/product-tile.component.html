@@ -1,0 +1,56 @@
+<div
+  class="card"
+  [class.mat-elevation-z6]="productHovered == product?._id"
+  (mouseover)="productHovered = product?._id"
+  (mouseleave)="productHovered = undefined"
+>
+  <div class="card-body">
+    <img
+      [src]="product?.imageURL"
+      class="product-img mx-auto"
+      [alt]="product?.name"
+    />
+    <p
+      class="mb-0 title-text text-truncate"
+      [matTooltip]="product?.name || ''"
+      matTooltipPosition="below"
+    >
+      {{ product?.name }}
+    </p>
+    <p class="product-title text-truncate mb-0">
+      {{ product?.weight }} {{ product?.unit }}
+    </p>
+    <h6
+      class="text-success"
+      *ngIf="product && product.quantity >= product.bufferQuantity"
+    >
+      In Stock
+    </h6>
+    <h6
+      class="text-warning"
+      *ngIf="
+        product &&
+        product.quantity < product.bufferQuantity &&
+        product.quantity > 0
+      "
+    >
+      Few items left
+    </h6>
+    <h6 class="text-danger" *ngIf="product && product.quantity == 0">
+      Out of Stock
+    </h6>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="card-footer d-flex justify-content-between">
+    <span class="mt-2"> {{ product?.rate | currency }}</span>
+    <button
+      mat-icon-button
+      matTooltip="Add to Cart"
+      matTooltipPosition="below"
+      color="primary"
+      [disabled]="product && product.quantity == 0"
+    >
+      <mat-icon>add_shopping_cart</mat-icon>
+    </button>
+  </div>
+</div>

@@ -33,7 +33,10 @@ export const API_CONFIG = {
 };
 
 export const handleHTTPError = (err: HttpErrorResponse) => {
-  throw err.error.msg;
+  if (err.status == 400) {
+    throw err.error.msg;
+  }
+  throw err;
 };
 
 export const USER_ENTITIES: NavItem[] = [

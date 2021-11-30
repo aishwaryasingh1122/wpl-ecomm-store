@@ -1,3 +1,51 @@
 <div class="main-content animate__animated animate__fadeIn">
-  <div class="container-fluid">Products!</div>
+  <div class="container-fluid">
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Products ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container
+        *ngIf="(products$ | async)! | filterDeletedProducts: false as products"
+      >
+        <div *ngIf="products.length > 0; else noProducts">
+          <div class="row animate__animated animate__fadeIn">
+            <div
+              class="col-6 col-sm-6 col-md-4 col-lg-2"
+              *ngFor="let product of products"
+            >
+              <product-tile [product]="product"></product-tile>
+            </div>
+          </div>
+        </div>
+        <ng-template #noProducts>
+          <div class="row mt-4">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+              <img
+                src="../../../../../assets/img/empty_list.svg"
+                alt="list-empty"
+                class="empty-list-icon"
+              />
+              <h1>Oops! Looks like you're here too soon.</h1>
+              <h3>
+                Check this space later for a collection of exciting products to
+                shop.
+              </h3>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </div>
 </div>
