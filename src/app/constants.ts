@@ -10,7 +10,7 @@ export const API_CONFIG = {
     GET_SESSION: '/api/account/user-session',
   },
   PRODUCTS: {
-    GET_PRODUCTS: '',
+    GET_PRODUCTS: '/api/products',
   },
   ADMIN: {
     USERS: {
@@ -24,9 +24,10 @@ export const API_CONFIG = {
       REMOVE_CATEGORY: '/api/account/admin/product-category/:categoryId',
     },
     PRODUCTS: {
-      ADD_PRODUCT: '',
-      EDIT_PRODUCT: '',
-      DELETE_PRODUCT: '',
+      ADD_PRODUCT: '/api/account/admin/product',
+      UPDATE_QUANTITY: '/api/account/admin/product/update-quantity/:productId',
+      TOGGLE_AVAILABILITY:
+        '/api/account/admin/product/toggle-availability/:productId',
     },
   },
 };

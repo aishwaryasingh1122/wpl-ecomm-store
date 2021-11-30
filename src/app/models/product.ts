@@ -9,6 +9,9 @@ export interface Product {
   category: ProductCategory;
   createdAt: string;
   imageUrl: string;
+  isDeleted: boolean;
+  quantity: number;
+  bufferQuantity: number;
 }
 
 export interface AddProductParams {
@@ -19,4 +22,10 @@ export interface AddProductParams {
   category: string;
   imgData: string;
   fileName: string;
+}
+
+export interface UpdateQuantityParams {
+  productId: string;
+  quantity?: number;
+  bufferQuantity?: number;
 }
