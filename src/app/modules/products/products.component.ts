@@ -17,6 +17,7 @@ import { ProductsService } from 'src/app/services/products.service';
 export class ProductsComponent implements OnInit {
   products$: Observable<Product[]>;
   categories$: Observable<ProductCategory[]>;
+  searchText?: string;
 
   showLoader = true;
   dialogRef: any = null;
@@ -34,6 +35,10 @@ export class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+  }
+
+  searchProducts(searchText: string) {
+    this.searchText = searchText;
   }
 
   loadData() {
