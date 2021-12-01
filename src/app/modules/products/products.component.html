@@ -17,8 +17,27 @@
     </ng-template>
     <ng-template #list>
       <ng-container
-        *ngIf="(products$ | async)! | filterDeletedProducts: false as products"
+        *ngIf="
+          (products$ | async)!
+            | filterDeletedProducts: false
+            | filterByCategory: categoryFilterControl.value as products
+        "
       >
+        <div class="row">
+          <div class="col-6 col-md-4 col-lg-3">
+            <mat-form-field color="primary">
+              <mat-label>Shop By Category</mat-label>
+              <mat-select [formControl]="categoryFilterControl">
+                <mat-option value="">Show All</mat-option>
+                <mat-option
+                  *ngFor="let category of categories$ | async"
+                  [value]="category?._id"
+                  >{{ category.title | titlecase }}</mat-option
+                >
+              </mat-select>
+            </mat-form-field>
+          </div>
+        </div>
         <div *ngIf="products.length > 0; else noProducts">
           <div class="row animate__animated animate__fadeIn">
             <div
@@ -37,7 +56,7 @@
                 alt="list-empty"
                 class="empty-list-icon"
               />
-              <h1>Oops! Looks like you're here too soon.</h1>
+              <h1>Oops! We're still working on this.</h1>
               <h3>
                 Check this space later for a collection of exciting products to
                 shop.
