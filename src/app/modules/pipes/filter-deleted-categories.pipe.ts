@@ -3,7 +3,7 @@ import * as _ from 'lodash';
 import { ProductCategory } from 'src/app/models/product-category';
 
 @Pipe({
-  name: 'filterDeleted',
+  name: 'filterDeletedCategories',
 })
 export class FilterDeletedCategories implements PipeTransform {
   constructor() {}

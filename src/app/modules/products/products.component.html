@@ -30,7 +30,10 @@
               <mat-select [formControl]="categoryFilterControl">
                 <mat-option value="">Show All</mat-option>
                 <mat-option
-                  *ngFor="let category of categories$ | async"
+                  *ngFor="
+                    let category of (categories$ | async)!
+                      | filterDeletedCategories: false
+                  "
                   [value]="category?._id"
                   >{{ category.title | titlecase }}</mat-option
                 >

@@ -12,6 +12,9 @@ export const API_CONFIG = {
   PRODUCTS: {
     GET_PRODUCTS: '/api/products',
   },
+  CATEGORIES: {
+    GET_CATEGORIES: '/api/product-category',
+  },
   ADMIN: {
     USERS: {
       GET_ALL: '/api/account/admin/users',
@@ -19,7 +22,6 @@ export const API_CONFIG = {
       TOGGLE_ACCOUNT: '/api/account/admin/toggle-account/:userId',
     },
     CATEGORIES: {
-      GET_ALL: '/api/account/admin/product-category',
       ADD_CATEGORY: '/api/account/admin/product-category',
       REMOVE_CATEGORY: '/api/account/admin/product-category/:categoryId',
     },

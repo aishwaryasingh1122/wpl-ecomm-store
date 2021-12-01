@@ -28,8 +28,10 @@
         </div>
         <div
           *ngIf="
-            ((categories | filterDeleted: showDeletedCategories.value) || [])
-              .length > 0;
+            (
+              (categories
+                | filterDeletedCategories: showDeletedCategories.value) || []
+            ).length > 0;
             else noCategories
           "
         >
@@ -53,7 +55,8 @@
                         <tr
                           *ngFor="
                             let category of categories
-                              | filterDeleted: showDeletedCategories.value;
+                              | filterDeletedCategories
+                                : showDeletedCategories.value;
                             index as $index
                           "
                         >

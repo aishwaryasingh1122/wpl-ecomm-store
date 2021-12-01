@@ -91,7 +91,7 @@
                     <mat-option
                       *ngFor="
                         let category of (categories$ | async)!
-                          | filterDeleted: false
+                          | filterDeletedCategories: false
                       "
                       [value]="category._id"
                     >

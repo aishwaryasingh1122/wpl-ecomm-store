@@ -5,12 +5,11 @@ import { ProductManagementRoutingModule } from './product-management-routing.mod
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxFileHelpersModule } from 'ngx-file-helpers';
 import { MaterialModule } from 'src/app/material.module';
-import { ProductCategoriesModule } from '../product-categories/product-categories.module';
 import { ProductManagementComponent } from './product-management.component';
 import { ManageProductsComponent } from './manage-products/manage-products.component';
-import { PipesModule } from '../pipes/pipes.module';
 import { MomentModule } from 'ngx-moment';
 import { DialogsModule } from '../dialogs/dialogs.module';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [ProductManagementComponent, ManageProductsComponent],
@@ -20,11 +19,10 @@ import { DialogsModule } from '../dialogs/dialogs.module';
     FormsModule,
     ReactiveFormsModule,
     MaterialModule,
-    ProductCategoriesModule,
     NgxFileHelpersModule,
-    PipesModule,
     MomentModule,
     DialogsModule,
+    PipesModule,
   ],
 })
 export class ProductManagementModule {}

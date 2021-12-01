@@ -6,11 +6,11 @@ import { ProductCategoriesComponent } from './product-categories.component';
 import { MaterialModule } from 'src/app/material.module';
 import { MomentModule } from 'ngx-moment';
 import { DialogsModule } from '../dialogs/dialogs.module';
-import { FilterDeletedCategories } from './filter-categories.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
-  declarations: [ProductCategoriesComponent, FilterDeletedCategories],
+  declarations: [ProductCategoriesComponent],
   imports: [
     CommonModule,
     ProductCategoriesRoutingModule,
@@ -19,7 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DialogsModule,
     FormsModule,
     ReactiveFormsModule,
+    PipesModule,
   ],
-  exports: [FilterDeletedCategories],
 })
 export class ProductCategoriesModule {}

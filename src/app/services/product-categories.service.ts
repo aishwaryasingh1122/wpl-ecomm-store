@@ -17,7 +17,7 @@ export class ProductCategoriesService {
   constructor(private dateService: DataService) {}
 
   getAllCategories(): Observable<boolean> {
-    return this.dateService.sendGET(API_CONFIG.ADMIN.CATEGORIES.GET_ALL).pipe(
+    return this.dateService.sendGET(API_CONFIG.CATEGORIES.GET_CATEGORIES).pipe(
       map((res: HttpResponse<any>) => {
         if (res && res.status === 200) {
           this.categoriesSubject.next(res.body);

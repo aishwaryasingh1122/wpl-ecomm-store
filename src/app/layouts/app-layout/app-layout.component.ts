@@ -28,7 +28,7 @@ export class AppLayoutComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
+      if (event instanceof NavigationEnd && this.isMobileDisplay) {
         this.drawer?.close();
       }
     });
