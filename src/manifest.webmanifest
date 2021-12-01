@@ -2,7 +2,7 @@
   "name": "E-Comm Store",
   "short_name": "E-Comm Store",
   "theme_color": "#ff5722",
-  "background_color": "#fafafa",
+  "background_color": "#ff5722",
   "display": "standalone",
   "scope": "./",
   "start_url": "./",

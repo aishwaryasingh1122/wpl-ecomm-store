@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { Product } from 'src/app/models/product';
+import { ProductCategory } from 'src/app/models/product-category';
+import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ProductsService } from 'src/app/services/products.service';
 
 @Component({
@@ -13,16 +16,20 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
   products$: Observable<Product[]>;
+  categories$: Observable<ProductCategory[]>;
+
   showLoader = true;
   dialogRef: any = null;
 
+  categoryFilterControl: FormControl = new FormControl('', []);
+
   constructor(
     private toastrService: ToastrService,
-    private dialog: MatDialog,
     private productsService: ProductsService,
-    private spinner: NgxSpinnerService
+    private productCategoriesService: ProductCategoriesService
   ) {
     this.products$ = this.productsService.products$;
+    this.categories$ = this.productCategoriesService.categories$;
   }
 
   ngOnInit(): void {
@@ -46,5 +53,7 @@ export class ProductsComponent implements OnInit {
         this.toastrService.error(err, 'Something went wrong');
       },
     });
+
+    this.productCategoriesService.getAllCategories().subscribe();
   }
 }

@@ -5,6 +5,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, Observable, switchMap } from 'rxjs';
 import { Product, UpdateQuantityParams } from 'src/app/models/product';
+import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ProductsService } from 'src/app/services/products.service';
 import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
 import { UpdateQuantityDialogComponent } from '../dialogs/update-quantity-dialog/update-quantity-dialog.component';
@@ -16,6 +17,7 @@ import { UpdateQuantityDialogComponent } from '../dialogs/update-quantity-dialog
 })
 export class ProductManagementComponent implements OnInit {
   products$: Observable<Product[]>;
+
   showLoader = true;
   dialogRef: any = null;
 
