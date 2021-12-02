@@ -15,6 +15,11 @@ export const API_CONFIG = {
   CATEGORIES: {
     GET_CATEGORIES: '/api/product-category',
   },
+  CART: {
+    GET_CART: '/api/account/cart',
+    CLEAR_CART: '/api/account/cart',
+    SET_ITEM_TO_CART: '/api/account/cart',
+  },
   ADMIN: {
     USERS: {
       GET_ALL: '/api/account/admin/users',
@@ -55,8 +60,14 @@ export const USER_ENTITIES: NavItem[] = [
     icontype: 'keyboard_backspace',
   },
   {
+    path: '/cart',
+    title: 'Your Cart',
+    type: 'parent',
+    icontype: 'shopping_cart',
+  },
+  {
     path: '/orders',
-    title: 'Orders',
+    title: 'Your Orders',
     type: 'parent',
     icontype: 'receipt',
   },

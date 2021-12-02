@@ -5,6 +5,9 @@ import { NavItem } from 'src/app/models/nav-item';
 import { DrawerService } from 'src/app/services/drawer.service';
 import { find } from 'lodash';
 import { MatDrawer } from '@angular/material/sidenav';
+import { Observable } from 'rxjs';
+import { Cart } from 'src/app/models/cart';
+import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-app-layout',

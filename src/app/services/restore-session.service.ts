@@ -5,14 +5,19 @@ import {
   RouterStateSnapshot,
   UrlTree,
 } from '@angular/router';
-import { Observable } from 'rxjs';
+import { combineLatest, map, Observable } from 'rxjs';
+import { CartService } from './cart.service';
 import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class RestoreSessionService {
-  constructor(private userService: UserService, private router: Router) {}
+  constructor(
+    private userService: UserService,
+    private router: Router,
+    private cartService: CartService
+  ) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,
@@ -23,7 +28,14 @@ export class RestoreSessionService {
     | boolean
     | UrlTree {
     if (this.userService.isAuthenticated) {
-      return this.userService.getUserSession();
+      return combineLatest([
+        this.userService.getUserSession(),
+        this.cartService.getUserCart(),
+      ]).pipe(
+        map((res: boolean[]) => {
+          return res[0] && res[1];
+        })
+      );
     }
     return true;
   }

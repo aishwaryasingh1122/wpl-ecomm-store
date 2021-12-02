@@ -53,7 +53,11 @@ export class LoginComponent implements OnInit {
       },
       error: (err) => {
         this.showLoader = false;
-        this.toastrService.error(err, 'Login Failed');
+        if (err.status == 400) {
+          this.toastrService.error(err, 'Login Failed');
+        } else {
+          this.toastrService.error(err.error.msg, 'Login Failed');
+        }
       },
     });
   }

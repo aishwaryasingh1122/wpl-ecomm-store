@@ -76,6 +76,21 @@
           </div>
         </ng-template>
       </ng-container>
+      <button
+        mat-fab
+        class="fab text-white"
+        color="primary"
+        matTooltip="View Cart"
+        matTooltipPosition="before"
+        [routerLink]="['/cart']"
+      >
+        <mat-icon>shopping_cart</mat-icon>
+        <span
+          class="position-absolute top-0 translate-middle badge p-2 bg-primary"
+        >
+          {{ (cart$ | async)?.productData?.length }}
+        </span>
+      </button>
     </ng-template>
   </div>
 </div>

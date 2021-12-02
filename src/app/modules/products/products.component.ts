@@ -4,8 +4,10 @@ import { MatDialog } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { ProductCategory } from 'src/app/models/product-category';
+import { CartService } from 'src/app/services/cart.service';
 import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ProductsService } from 'src/app/services/products.service';
 
@@ -16,6 +18,7 @@ import { ProductsService } from 'src/app/services/products.service';
 })
 export class ProductsComponent implements OnInit {
   products$: Observable<Product[]>;
+  cart$: Observable<Cart>;
   categories$: Observable<ProductCategory[]>;
   searchText?: string;
 
@@ -27,10 +30,12 @@ export class ProductsComponent implements OnInit {
   constructor(
     private toastrService: ToastrService,
     private productsService: ProductsService,
-    private productCategoriesService: ProductCategoriesService
+    private productCategoriesService: ProductCategoriesService,
+    private cartService: CartService
   ) {
     this.products$ = this.productsService.products$;
     this.categories$ = this.productCategoriesService.categories$;
+    this.cart$ = this.cartService.cart$;
   }
 
   ngOnInit(): void {

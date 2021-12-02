@@ -8,7 +8,7 @@
   </mat-drawer>
   <mat-drawer-content>
     <mat-toolbar color="primary">
-      <button mat-icon-button (click)="drawer.toggle()">
+      <button mat-icon-button (click)="drawer.toggle()" *ngIf="isMobileDisplay">
         <mat-icon>menu</mat-icon>
       </button>
       <button mat-mini-fab class="nav-icon" (click)="goBack()">
