@@ -53,7 +53,7 @@
       </ng-container>
     </ul>
     <mat-divider class="mt-3"></mat-divider>
-    <ul class="nav">
+    <ul class="nav" *ngIf="user._id !== 'guest'">
       <li class="nav-item" (click)="signOut()">
         <a class="nav-link animate__animated animate__fadeInUp">
           <i class="material-icons">logout</i>
