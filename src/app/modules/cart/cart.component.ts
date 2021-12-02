@@ -11,12 +11,8 @@ import { CartService } from 'src/app/services/cart.service';
 })
 export class CartComponent implements OnInit {
   cart$: Observable<Cart>;
-  showLoader = true;
 
-  constructor(
-    private cartService: CartService,
-    private toastrService: ToastrService
-  ) {
+  constructor(private cartService: CartService) {
     this.cart$ = this.cartService.cart$;
   }
 

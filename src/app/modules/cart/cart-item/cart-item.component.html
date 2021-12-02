@@ -1,5 +1,52 @@
 <div class="card my-2">
   <div class="card-body">
-    {{ cartItem?.product?.name }}
+    <div class="row">
+      <div class="col-5 col-md-2 pt-4 pt-md-0">
+        <img
+          [src]="cartItem?.product?.imageURL"
+          [alt]="cartItem?.product?.name"
+          class="product-img img-thumbnail"
+        />
+      </div>
+      <div class="col-7 col-md-7">
+        <p
+          class="mb-0 title-text text-truncate"
+          [matTooltip]="cartItem?.product?.name"
+          matTooltipPosition="below"
+        >
+          {{ cartItem?.product?.name }}
+        </p>
+        <p class="mb-0 product-title text-truncate">
+          {{ cartItem?.product?.weight }} {{ cartItem?.product?.unit }}
+        </p>
+        <p class="mb-0 product-title text-truncate">
+          Quantity: {{ cartItem?.quantity }}
+        </p>
+        <h5 class="mb-0">Rate: {{ cartItem?.product?.rate | currency }}</h5>
+        <h3 class="d-md-none text-info mt-0">
+          {{ cartItem?.product?.rate * cartItem?.quantity | currency }}
+        </h3>
+        <div class="mt-3">
+          <button
+            mat-mini-fab
+            class="mx-1"
+            [color]="cartItem?.quantity == 1 ? 'warn' : 'accent'"
+          >
+            <mat-icon class="text-white">{{
+              cartItem?.quantity == 1 ? "delete" : "remove"
+            }}</mat-icon>
+          </button>
+          <button mat-mini-fab class="mx-1" color="accent">
+            <mat-icon class="text-white">add</mat-icon>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-3 d-none d-md-block" align="right">
+        <h2 class="mt-auto text-right text-info">
+          {{ cartItem?.product?.rate * cartItem?.quantity | currency }}
+        </h2>
+        <p class="text-right">Item Total</p>
+      </div>
+    </div>
   </div>
 </div>
