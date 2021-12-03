@@ -55,7 +55,10 @@
               class="col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2"
               *ngFor="let product of products"
             >
-              <product-tile [product]="product"></product-tile>
+              <product-tile
+                [product]="product"
+                (addToCart)="handleAddToCart($event)"
+              ></product-tile>
             </div>
           </div>
         </div>
@@ -86,8 +89,16 @@
       >
         <mat-icon>shopping_cart</mat-icon>
         <span
-          *ngIf="(cart$ | async)?.productData"
-          class="position-absolute top-0 translate-middle badge p-2 bg-primary"
+          *ngIf="(cart$ | async)?.productData?.length"
+          class="
+            position-absolute
+            top-0
+            translate-middle
+            badge
+            p-2
+            bg-primary
+            animate__animated animate__zoomInß
+          "
         >
           {{ (cart$ | async)?.productData?.length }}
         </span>

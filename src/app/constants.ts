@@ -110,3 +110,8 @@ export const GUEST_USER: User = {
   role: -1,
   createdAt: '',
 };
+
+export enum UPDATE_QUANTITY {
+  DECREMENT,
+  INCREMENT,
+}

@@ -48,6 +48,7 @@
       matTooltip="Add to Cart"
       matTooltipPosition="below"
       color="primary"
+      (click)="addItemToCart()"
       [disabled]="product && product.quantity == 0"
     >
       <mat-icon>add_shopping_cart</mat-icon>

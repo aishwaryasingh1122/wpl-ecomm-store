@@ -7,9 +7,11 @@ import { Observable } from 'rxjs';
 import { Cart } from 'src/app/models/cart';
 import { Product } from 'src/app/models/product';
 import { ProductCategory } from 'src/app/models/product-category';
+import { User } from 'src/app/models/user';
 import { CartService } from 'src/app/services/cart.service';
 import { ProductCategoriesService } from 'src/app/services/product-categories.service';
 import { ProductsService } from 'src/app/services/products.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'products',
@@ -21,6 +23,7 @@ export class ProductsComponent implements OnInit {
   cart$: Observable<Cart>;
   categories$: Observable<ProductCategory[]>;
   searchText?: string;
+  currentUser?: User;
 
   showLoader = true;
   dialogRef: any = null;
@@ -31,11 +34,18 @@ export class ProductsComponent implements OnInit {
     private toastrService: ToastrService,
     private productsService: ProductsService,
     private productCategoriesService: ProductCategoriesService,
-    private cartService: CartService
+    private cartService: CartService,
+    private spinner: NgxSpinnerService,
+    private usersService: UserService
   ) {
     this.products$ = this.productsService.products$;
     this.categories$ = this.productCategoriesService.categories$;
     this.cart$ = this.cartService.cart$;
+    this.usersService.user$.subscribe({
+      next: (user: User) => {
+        this.currentUser = user;
+      },
+    });
   }
 
   ngOnInit(): void {
@@ -65,5 +75,37 @@ export class ProductsComponent implements OnInit {
     });
 
     this.productCategoriesService.getAllCategories().subscribe();
+  }
+
+  handleAddToCart(productId: string) {
+    console.log('Adding to cart in products', productId);
+    if (this.currentUser?._id === 'guest') {
+      this.toastrService.warning(
+        'Please login to add item to cart.',
+        'Login Required'
+      );
+      return;
+    }
+    this.spinner.show();
+    this.cartService.setItemInCart({ productId, quantity: 1 }).subscribe({
+      next: (res: boolean) => {
+        this.spinner.hide();
+        if (res) {
+          this.toastrService.success(
+            'Item added to cart successfully.',
+            'Cart Updated!'
+          );
+        } else {
+          this.toastrService.error(
+            'Failed to add item to cart.',
+            'Something went wrong. Try again!'
+          );
+        }
+      },
+      error: (err: string) => {
+        this.spinner.hide();
+        this.toastrService.error(err, 'Something went wrong. Try again!');
+      },
+    });
   }
 }

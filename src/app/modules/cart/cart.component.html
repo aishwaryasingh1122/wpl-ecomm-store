@@ -1,14 +1,59 @@
 <div class="main-content animate__animated animate__fadeIn">
   <div class="container-fluid">
     <ng-container *ngIf="cart$ | async as cart">
-      <div class="row">
-        <div class="col-12 col-md-8 offset-md-2">
-          <cart-item
-            [cart-item]="item"
-            *ngFor="let item of cart.productData"
-          ></cart-item>
+      <ng-container
+        *ngIf="cart?.productData?.length > 0; then cartItems; else emptyCart"
+      ></ng-container>
+      <ng-template #cartItems>
+        <div class="row mt-2">
+          <div class="col-12 col-md-8 offset-md-2" align="end">
+            <button mat-raised-button color="primary" class="text-white">
+              Proceed To Checkout
+            </button>
+          </div>
         </div>
-      </div>
+        <div class="row">
+          <div class="col-12 col-md-8 offset-md-2">
+            <cart-item
+              [cart-item]="item"
+              (updatedQuantity)="handleCartItemQuantityUpdated($event)"
+              *ngFor="let item of cart.productData"
+            ></cart-item>
+            <mat-divider></mat-divider>
+          </div>
+        </div>
+        <div class="row mt-3">
+          <div class="col-6 col-md-4 offset-md-2">
+            <h4>Cart Total:</h4>
+          </div>
+          <div class="col-6 col-md-4" align="right">
+            <h2>{{ cartTotal | currency }}</h2>
+          </div>
+        </div>
+        <div class="row mt-2">
+          <div class="col-12 text-center">
+            <button mat-raised-button color="primary" class="text-white">
+              Proceed To Checkout
+            </button>
+          </div>
+        </div>
+      </ng-template>
+
+      <ng-template #emptyCart>
+        <div class="row pt-3">
+          <div class="col-12 col-md-8 offset-md-2 text-center">
+            <img
+              src="../../../../../assets/img/cart_empty.svg"
+              alt="cart-empty"
+              class="empty-cart-icon"
+            />
+            <h1>Your cart is empty!</h1>
+            <h3>
+              Begin shopping to fill your cart with some exciting new products!
+            </h3>
+          </div>
+        </div>
+      </ng-template>
     </ng-container>
   </div>
 </div>

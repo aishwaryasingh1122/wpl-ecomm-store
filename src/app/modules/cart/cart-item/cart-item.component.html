@@ -30,13 +30,19 @@
           <button
             mat-mini-fab
             class="mx-1"
+            (click)="updateQuantity(UPDATE_QUANTITY.DECREMENT)"
             [color]="cartItem?.quantity == 1 ? 'warn' : 'accent'"
           >
             <mat-icon class="text-white">{{
               cartItem?.quantity == 1 ? "delete" : "remove"
             }}</mat-icon>
           </button>
-          <button mat-mini-fab class="mx-1" color="accent">
+          <button
+            mat-mini-fab
+            class="mx-1"
+            color="accent"
+            (click)="updateQuantity(UPDATE_QUANTITY.INCREMENT)"
+          >
             <mat-icon class="text-white">add</mat-icon>
           </button>
         </div>
