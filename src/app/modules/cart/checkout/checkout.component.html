@@ -96,11 +96,203 @@
                     </button>
                   </div>
                 </mat-step>
-                <mat-step>
+                <mat-step [completed]="selectedAddress">
                   <ng-template matStepLabel>Delivery Address</ng-template>
+                  <h4>Pick a Delivery Address</h4>
+                  <ng-container *ngIf="(addresses$ | async)! as addresses">
+                    <div class="row">
+                      <div class="col-12" align="end">
+                        <button
+                          mat-raised-button
+                          color="primary"
+                          class="text-white"
+                        >
+                          Add New Address
+                        </button>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div
+                        class="col-12 col-sm-6 col-md-4 col-lg-3"
+                        *ngFor="let address of addresses"
+                      >
+                        <div
+                          class="card pointer mat-elevation-z2"
+                          [ngClass]="{
+                            'card-selected': selectedAddress?._id == address._id
+                          }"
+                          (click)="setSelectedAddress(address)"
+                        >
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="d-flex justify-content-between">
+                                  <p>
+                                    <strong>{{
+                                      address.name | titlecase
+                                    }}</strong>
+                                  </p>
+                                  <span
+                                    *ngIf="selectedAddress?._id == address._id"
+                                  >
+                                    <button
+                                      mat-icon-button
+                                      color="accent"
+                                      matTooltip="Edit Address"
+                                      matTooltipPosition="below"
+                                    >
+                                      <mat-icon>edit</mat-icon>
+                                    </button>
+                                    <button
+                                      mat-icon-button
+                                      color="warn"
+                                      matTooltip="Delete Address"
+                                      matTooltipPosition="below"
+                                    >
+                                      <mat-icon>delete</mat-icon>
+                                    </button>
+                                  </span>
+                                </div>
+                                <p class="mb-0" *ngIf="address.apartment">
+                                  {{ address.apartment }}
+                                </p>
+                                <p class="mb-0">{{ address.addressLine1 }}</p>
+                                <p class="mb-0" *ngIf="address.addressLine2">
+                                  {{ address.addressLine2 }}
+                                </p>
+                                <p class="mb-0">
+                                  Pincode: {{ address.pincode }}
+                                </p>
+                                <p
+                                  class="mb-0"
+                                  *ngIf="address.deliveryInstructions"
+                                >
+                                  Instructions:
+                                  {{ address.deliveryInstructions }}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="text-white"
+                      matStepperPrevious
+                    >
+                      Previous
+                    </button>
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="text-white"
+                      matStepperNext
+                    >
+                      Next
+                    </button>
+                  </div>
                 </mat-step>
                 <mat-step>
                   <ng-template matStepLabel>Order Confirmation</ng-template>
+                  <h3>Confirm And Place Order</h3>
+                  <div class="row">
+                    <div class="col-12">
+                      <div class="card my-2 mat-elevation-z2">
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-6">
+                              <h2>Order Total:</h2>
+                            </div>
+                            <div class="col-6" align="end">
+                              <h2>{{ orderTotal | currency }}</h2>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card my-2 mat-elevation-z2">
+                        <div class="card-body">
+                          <h3>Deliver to:</h3>
+                          <div class="row">
+                            <div class="col-12">
+                              <div class="d-flex justify-content-between">
+                                <span>
+                                  <p class="mb-0">
+                                    <strong>{{
+                                      selectedAddress?.name | titlecase
+                                    }}</strong>
+                                  </p>
+                                  <p>{{ selectedAddress?.mobile }}</p>
+                                  <p class="mb-0">
+                                    {{ selectedAddress?.apartment }}
+                                  </p>
+                                  <p class="mb-0">
+                                    {{ selectedAddress?.addressLine1 }}
+                                  </p>
+                                  <p class="mb-0">
+                                    {{ selectedAddress?.addressLine2 }}
+                                  </p>
+                                  <p class="mb-0">
+                                    Pincode: {{ selectedAddress?.pincode }}
+                                  </p>
+                                  <p class="mb-0">
+                                    Landmark: {{ selectedAddress?.landmark }}
+                                  </p>
+                                </span>
+                                <img
+                                  class="d-none d-md-block illustrations-img"
+                                  src="../../../assets/img/address.svg"
+                                  alt="address"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="card my-2 mat-elevation-z2">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between">
+                            <span>
+                              <h4>
+                                Payment Method: <strong>Pay On Delivery</strong>
+                              </h4>
+                              <h5>
+                                You can pay by Cash, Credit, Debit, Venmo or
+                                Paypal when you receive your products at your
+                                doorstep!
+                              </h5>
+                            </span>
+                            <img
+                              class="d-none d-md-block illustrations-img"
+                              src="../../../assets/img/payment-method.svg"
+                              alt="address"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between mt-3">
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="text-white"
+                      matStepperPrevious
+                    >
+                      Previous
+                    </button>
+                    <button
+                      mat-raised-button
+                      color="primary"
+                      class="text-white"
+                      matStepperNext
+                    >
+                      Place Order
+                    </button>
+                  </div>
                 </mat-step>
               </mat-stepper>
             </div>

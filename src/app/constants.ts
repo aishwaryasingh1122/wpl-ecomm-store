@@ -21,6 +21,12 @@ export const API_CONFIG = {
     CLEAR_CART: '/api/account/cart',
     SET_ITEM_TO_CART: '/api/account/cart',
   },
+  ADDRESSES: {
+    GET_ADDRESSES_FOR_USER: '/api/account/addresses',
+    ADD_NEW_ADDRESS: '/api/account/addresses',
+    EDIT_ADDRESS: '/api/account/addresses/:addressId',
+    DELETE_ADDRESS: '/api/account/addresses/:addressId',
+  },
   ADMIN: {
     USERS: {
       GET_ALL: '/api/account/admin/users',
