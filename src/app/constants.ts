@@ -1,4 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
+import { CartItem } from './models/cart';
 import { NavItem } from './models/nav-item';
 import { User } from './models/user';
 
@@ -121,3 +122,12 @@ export enum UPDATE_QUANTITY {
   DECREMENT,
   INCREMENT,
 }
+
+export const getCartTotal = (productData: CartItem[]): number => {
+  let cartTotal = 0;
+  productData?.forEach((item: CartItem) => {
+    cartTotal += (item.product?.rate || 1) * item.quantity;
+  });
+
+  return cartTotal;
+};

@@ -4,6 +4,7 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { map, Observable } from 'rxjs';
+import { getCartTotal } from 'src/app/constants';
 import { Cart, CartItem } from 'src/app/models/cart';
 import { CartService } from 'src/app/services/cart.service';
 import { ActionConfirmDialogComponent } from '../dialogs/action-confirm-dialog/action-confirm-dialog.component';
@@ -26,7 +27,7 @@ export class CartComponent implements OnInit {
   ) {
     this.cart$ = this.cartService.cart$.pipe(
       map((cart: Cart) => {
-        this.getCartTotal(cart.productData);
+        this.cartTotal = getCartTotal(cart?.productData!);
         return cart;
       })
     );
@@ -84,14 +85,5 @@ export class CartComponent implements OnInit {
     } else {
       this.setItemToCart(cartItem);
     }
-  }
-
-  getCartTotal(productData?: CartItem[]) {
-    let cartTotal = 0;
-    productData?.forEach((item: CartItem) => {
-      cartTotal += (item.product?.rate || 1) * item.quantity;
-    });
-
-    this.cartTotal = cartTotal;
   }
 }
