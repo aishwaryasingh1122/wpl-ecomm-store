@@ -17,6 +17,6 @@ export class ProductTileComponent implements OnInit {
   ngOnInit(): void {}
 
   addItemToCart() {
-    this.addToCart.emit(this.product?._id);
+    this.addToCart.emit(this.product);
   }
 }

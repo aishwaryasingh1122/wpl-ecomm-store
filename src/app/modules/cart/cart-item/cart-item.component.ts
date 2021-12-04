@@ -20,6 +20,7 @@ export class CartItemComponent implements OnInit {
   updateQuantity(updateAction: UPDATE_QUANTITY) {
     if (this.cartItem) {
       this.updatedQuantity.emit({
+        product: this.cartItem.product,
         productId: this.cartItem?.product?._id,
         quantity:
           updateAction == UPDATE_QUANTITY.DECREMENT

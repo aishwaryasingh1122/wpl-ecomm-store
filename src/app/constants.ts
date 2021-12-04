@@ -60,6 +60,12 @@ export const USER_ENTITIES: NavItem[] = [
     icontype: 'keyboard_backspace',
   },
   {
+    path: '/cart/checkout',
+    title: 'Checkout',
+    type: 'child',
+    icontype: 'keyboard_backspace',
+  },
+  {
     path: '/cart',
     title: 'Your Cart',
     type: 'parent',

@@ -77,8 +77,7 @@ export class ProductsComponent implements OnInit {
     this.productCategoriesService.getAllCategories().subscribe();
   }
 
-  handleAddToCart(productId: string) {
-    console.log('Adding to cart in products', productId);
+  handleAddToCart(product: Product) {
     if (this.currentUser?._id === 'guest') {
       this.toastrService.warning(
         'Please login to add item to cart.',
@@ -87,25 +86,27 @@ export class ProductsComponent implements OnInit {
       return;
     }
     this.spinner.show();
-    this.cartService.setItemInCart({ productId, quantity: 1 }).subscribe({
-      next: (res: boolean) => {
-        this.spinner.hide();
-        if (res) {
-          this.toastrService.success(
-            'Item added to cart successfully.',
-            'Cart Updated!'
-          );
-        } else {
-          this.toastrService.error(
-            'Failed to add item to cart.',
-            'Something went wrong. Try again!'
-          );
-        }
-      },
-      error: (err: string) => {
-        this.spinner.hide();
-        this.toastrService.error(err, 'Something went wrong. Try again!');
-      },
-    });
+    this.cartService
+      .setItemInCart({ productId: product._id, product, quantity: 1 })
+      .subscribe({
+        next: (res: boolean) => {
+          this.spinner.hide();
+          if (res) {
+            this.toastrService.success(
+              'Item added to cart successfully.',
+              'Cart Updated!'
+            );
+          } else {
+            this.toastrService.error(
+              'Failed to add item to cart.',
+              'Something went wrong. Try again!'
+            );
+          }
+        },
+        error: (err: string) => {
+          this.spinner.hide();
+          this.toastrService.error(err, 'Something went wrong. Try again!');
+        },
+      });
   }
 }

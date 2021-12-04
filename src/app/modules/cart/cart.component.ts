@@ -72,6 +72,13 @@ export class CartComponent implements OnInit {
   }
 
   handleCartItemQuantityUpdated(cartItem: CartItem) {
+    if (cartItem.quantity > cartItem.product?.quantity!) {
+      this.toastrService.error(
+        'Higher quantity purchases cannot be fulfilled for this item at this moment.',
+        'Stock limit reached!'
+      );
+      return;
+    }
     if (cartItem.quantity === 0) {
       this.showRemoveItemConfirmation(cartItem);
     } else {

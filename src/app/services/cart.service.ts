@@ -36,7 +36,7 @@ export class CartService {
             const cart: Cart = this.cartSubject.value;
             const itemIndexToUpdate = findIndex(
               cart.productData,
-              (item: CartItem) => item.product._id === cartItem.productId
+              (item: CartItem) => item.product?._id! === cartItem.productId
             );
 
             if (itemIndexToUpdate != -1) {
@@ -45,6 +45,11 @@ export class CartService {
               } else {
                 cart.productData![itemIndexToUpdate].quantity =
                   cartItem.quantity;
+              }
+            } else {
+              if (cartItem.quantity > 0) {
+                cart.productData?.push(cartItem);
+                this.cartSubject.next({ ...cart });
               }
             }
 
