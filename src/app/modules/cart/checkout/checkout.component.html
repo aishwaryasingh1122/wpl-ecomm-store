@@ -100,18 +100,20 @@
                   <ng-template matStepLabel>Delivery Address</ng-template>
                   <h4>Pick a Delivery Address</h4>
                   <ng-container *ngIf="(addresses$ | async)! as addresses">
-                    <div class="row">
+                    <div
+                      class="row"
+                      *ngIf="addresses.length > 0; else noAddresses"
+                    >
                       <div class="col-12" align="end">
                         <button
                           mat-raised-button
                           color="primary"
                           class="text-white"
+                          (click)="addNewAddress()"
                         >
                           Add New Address
                         </button>
                       </div>
-                    </div>
-                    <div class="row">
                       <div
                         class="col-12 col-sm-6 col-md-4 col-lg-3"
                         *ngFor="let address of addresses"
@@ -140,6 +142,7 @@
                                       color="accent"
                                       matTooltip="Edit Address"
                                       matTooltipPosition="below"
+                                      (click)="editUserAddress()"
                                     >
                                       <mat-icon>edit</mat-icon>
                                     </button>
@@ -148,6 +151,7 @@
                                       color="warn"
                                       matTooltip="Delete Address"
                                       matTooltipPosition="below"
+                                      (click)="deleteDeliveryAddress()"
                                     >
                                       <mat-icon>delete</mat-icon>
                                     </button>
@@ -176,6 +180,27 @@
                         </div>
                       </div>
                     </div>
+                    <ng-template #noAddresses>
+                      <div class="row mt-4">
+                        <div class="col-12 col-md-8 offset-md-2 text-center">
+                          <img
+                            src="../../../../../assets/img/empty_list.svg"
+                            alt="list-empty"
+                            class="empty-list-icon"
+                          />
+                          <h1>No delivery addresses found.</h1>
+                          <h3>Add a delivery address to continue checkout.</h3>
+                          <button
+                            mat-raised-button
+                            color="primary"
+                            class="text-white"
+                            (click)="addNewAddress()"
+                          >
+                            Add New Address
+                          </button>
+                        </div>
+                      </div>
+                    </ng-template>
                   </ng-container>
                   <div class="d-flex justify-content-between mt-3">
                     <button
@@ -239,7 +264,8 @@
                                     Pincode: {{ selectedAddress?.pincode }}
                                   </p>
                                   <p class="mb-0">
-                                    Landmark: {{ selectedAddress?.landmark }}
+                                    Delivery Instructions:
+                                    {{ selectedAddress?.deliveryInstructions }}
                                   </p>
                                 </span>
                                 <img

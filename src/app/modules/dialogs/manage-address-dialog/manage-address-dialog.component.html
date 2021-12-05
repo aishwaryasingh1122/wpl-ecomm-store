@@ -1,0 +1,121 @@
+<h3 mat-dialog-title>
+  {{ action == "add" ? "Add New Address" : "Update Address" }}
+</h3>
+<mat-dialog-content>
+  <form [formGroup]="addressForm">
+    <div class="row">
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Name" formControlName="name" />
+          <mat-error *ngIf="addressForm?.get('name').hasError('required')"
+            >Name is <strong>required.</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-12 col-md-6">
+        <mat-form-field appearance="outline">
+          <mat-label>Mobile Number</mat-label>
+          <input
+            matInput
+            placeholder="Enter 10 digit mobile number"
+            formControlName="mobile"
+          />
+          <mat-error *ngIf="addressForm?.get('mobile').hasError('required')"
+            >Mobile Number is <strong>required.</strong></mat-error
+          >
+          <mat-error
+            *ngIf="
+              !addressForm?.get('mobile').hasError('required') &&
+              (addressForm?.get('mobile').hasError('minLength') ||
+                addressForm?.get('mobile').hasError('maxLength'))
+            "
+            >Mobile Number must be <strong>10 digits.</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Apartment</mat-label>
+          <input
+            matInput
+            placeholder="Enter flat number & building name"
+            formControlName="apartment"
+          />
+          <mat-error *ngIf="addressForm?.get('apartment').hasError('required')"
+            >Apartment is <strong>required.</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Address Line 1</mat-label>
+          <input
+            matInput
+            placeholder="Enter street, locality, etc."
+            formControlName="addressLine1"
+          />
+          <mat-error
+            *ngIf="addressForm?.get('addressLine1').hasError('required')"
+            >Street Address is <strong>required.</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Address Line 2</mat-label>
+          <input
+            matInput
+            placeholder="More details to help us locate you"
+            formControlName="addressLine2"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Pincode</mat-label>
+          <input
+            matInput
+            placeholder="Enter pincode"
+            formControlName="pincode"
+          />
+          <mat-error *ngIf="addressForm?.get('pincode').hasError('required')"
+            >Pincode is <strong>required.</strong></mat-error
+          >
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <mat-form-field appearance="outline">
+          <mat-label>Delivery Instructions</mat-label>
+          <input
+            matInput
+            placeholder="Enter Delivery Instructions"
+            formControlName="deliveryInstructions"
+          />
+        </mat-form-field>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button color="primary" mat-dialog-close>Cancel</button>
+  <button
+    mat-raised-button
+    color="primary"
+    class="text-white"
+    [mat-dialog-close]="addressForm?.value"
+    [disabled]="addressForm?.invalid"
+  >
+    {{ action == "add" ? "Add Address" : "Update Address" }}
+  </button>
+</mat-dialog-actions>

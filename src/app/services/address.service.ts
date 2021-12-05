@@ -2,11 +2,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
 import { API_CONFIG, handleHTTPError } from '../constants';
-import {
-  AddAddressParams,
-  Address,
-  EditAddressParams,
-} from '../models/address';
+import { Address, ManageAddressParams } from '../models/address';
 import { DataService } from './data.service';
 import { findIndex } from 'lodash';
 
@@ -34,7 +30,7 @@ export class AddressService {
       );
   }
 
-  addNewAddress(params: AddAddressParams): Observable<boolean> {
+  addNewAddress(params: ManageAddressParams): Observable<boolean> {
     return this.dataService
       .sendPOST(API_CONFIG.ADDRESSES.ADD_NEW_ADDRESS, undefined, params)
       .pipe(
@@ -76,10 +72,10 @@ export class AddressService {
       );
   }
 
-  editUserAddress(params: EditAddressParams): Observable<boolean> {
+  editUserAddress(params: ManageAddressParams): Observable<boolean> {
     return this.dataService
       .sendPUT(
-        API_CONFIG.ADDRESSES.EDIT_ADDRESS.replace(':addressId', params._id),
+        API_CONFIG.ADDRESSES.EDIT_ADDRESS.replace(':addressId', params._id!),
         undefined,
         params
       )

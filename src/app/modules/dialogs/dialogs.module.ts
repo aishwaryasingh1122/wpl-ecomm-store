@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EditImageDialogComponent } from './edit-image-dialog/edit-image-dialog.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
 import { UpdateQuantityDialogComponent } from './update-quantity-dialog/update-quantity-dialog.component';
+import { ManageAddressDialogComponent } from './manage-address-dialog/manage-address-dialog.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { UpdateQuantityDialogComponent } from './update-quantity-dialog/update-q
     AddCategoryDialogComponent,
     EditImageDialogComponent,
     UpdateQuantityDialogComponent,
+    ManageAddressDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -27,6 +29,7 @@ import { UpdateQuantityDialogComponent } from './update-quantity-dialog/update-q
     AddCategoryDialogComponent,
     EditImageDialogComponent,
     UpdateQuantityDialogComponent,
+    ManageAddressDialogComponent,
   ],
 })
 export class DialogsModule {}
