@@ -40,6 +40,7 @@
                           <span
                             class="badge bg-primary"
                             [ngClass]="{
+                              'bg-info': order.status === 'PROCESSING',
                               'bg-danger': order.status === 'CANCELLED',
                               'bg-success': order.status === 'COMPLETED'
                             }"
