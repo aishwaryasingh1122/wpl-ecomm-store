@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, map, Observable, switchMap } from 'rxjs';
@@ -8,6 +9,7 @@ import { Address, ManageAddressParams } from 'src/app/models/address';
 import { Cart } from 'src/app/models/cart';
 import { AddressService } from 'src/app/services/address.service';
 import { CartService } from 'src/app/services/cart.service';
+import { OrdersService } from 'src/app/services/orders.service';
 import { ActionConfirmDialogComponent } from '../../dialogs/action-confirm-dialog/action-confirm-dialog.component';
 import { ManageAddressDialogComponent } from '../../dialogs/manage-address-dialog/manage-address-dialog.component';
 
@@ -28,7 +30,9 @@ export class CheckoutComponent implements OnInit {
     private addressService: AddressService,
     private toastrService: ToastrService,
     private dialog: MatDialog,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private ordersService: OrdersService,
+    private router: Router
   ) {
     this.cart$ = this.cartService.cart$.pipe(
       map((cart: Cart) => {
@@ -161,5 +165,31 @@ export class CheckoutComponent implements OnInit {
           this.toastrService.error(err, 'Something went wrong. Try again!');
         },
       });
+  }
+
+  createOrder() {
+    this.spinner.show();
+    this.ordersService.createOrder(this.selectedAddress._id).subscribe({
+      next: (res: boolean) => {
+        this.spinner.hide();
+
+        if (res) {
+          this.toastrService.success(
+            'Sit back and relax while we work on your order.',
+            'Order placed successfully'
+          );
+          this.router.navigate(['/orders']);
+        } else {
+          this.toastrService.error(
+            'Failed to create order',
+            'Something went wrong. Try again!'
+          );
+        }
+      },
+      error: (err) => {
+        this.spinner.hide();
+        this.toastrService.error(err, 'Something went wrong. Try again!');
+      },
+    });
   }
 }
