@@ -27,6 +27,10 @@ export const API_CONFIG = {
     EDIT_ADDRESS: '/api/account/addresses/:addressId',
     DELETE_ADDRESS: '/api/account/addresses/:addressId',
   },
+  ORDERS: {
+    GET_ORDERS_FOR_USER: '/api/account/orders',
+    CREATE_ORDER: '/api/account/orders',
+  },
   ADMIN: {
     USERS: {
       GET_ALL: '/api/account/admin/users',
@@ -42,6 +46,11 @@ export const API_CONFIG = {
       UPDATE_QUANTITY: '/api/account/admin/product/update-quantity/:productId',
       TOGGLE_AVAILABILITY:
         '/api/account/admin/product/toggle-availability/:productId',
+    },
+    ORDERS: {
+      GET_ALL_ORDERS: '/api/account/admin/orders',
+      UPDATE_ORDER_STATUS:
+        '/api/account/admin/orders/update-status/:orderId/:status',
     },
   },
 };
@@ -137,3 +146,11 @@ export const getCartTotal = (productData: CartItem[]): number => {
 
   return cartTotal;
 };
+
+export enum ORDER_STATUS {
+  'CANCELLED',
+  'NEW',
+  'PROCESSING',
+  'DISPATCHED',
+  'COMPLETED',
+}

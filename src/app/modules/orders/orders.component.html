@@ -1,3 +1,99 @@
 <div class="main-content animate__animated animate__fadeIn">
-  <div class="container-fluid">Orders!</div>
+  <div class="container-fluid">
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Orders ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container *ngIf="orders$ | async as orders">
+        <ng-container *ngIf="orders.length > 0; else noOrders">
+          <div *ngFor="let group of orders | groupOrdersByDate">
+            <h4>{{ group.orderDate }}</h4>
+            <div class="row">
+              <div
+                class="col-12 col-md-8 col-lg-6 offset-md-2 offset-lg-3"
+                *ngFor="let order of group.orders"
+              >
+                <div class="card pointer mx-1 my-2">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-5 col-md-3" align="center">
+                        <img
+                          src="../../../../../assets/img/order.png"
+                          class="order-icon mt-4"
+                          alt="snacks"
+                        />
+                      </div>
+                      <div class="col-7 col-md-9 mt-auto mb-auto">
+                        <h6 class="text-right">
+                          <span
+                            class="badge bg-primary"
+                            [ngClass]="{
+                              'bg-danger': order.status === 'CANCELLED',
+                              'bg-success': order.status === 'COMPLETED'
+                            }"
+                            >{{ order.status }}</span
+                          >
+                        </h6>
+                        <h6 class="mb-0">
+                          <strong>Order#: </strong>{{ order._id | summary: 7 }}
+                        </h6>
+                        <h6 class="mb-0">
+                          <strong>Order Date: </strong>
+                          <br class="d-block d-md-none" />
+                          {{
+                            order.createdAt | amDateFormat: "DD/MM/YYYY hh:mm a"
+                          }}
+                        </h6>
+                        <h6 class="mb-0"><strong> Order Total:</strong></h6>
+                        <h3 class="text-info mt-0">
+                          {{ order.orderTotal | currency }}
+                        </h3>
+                      </div>
+                    </div>
+                    <div class="button-row" align="end">
+                      <button
+                        mat-raised-button
+                        class="text-white"
+                        color="primary"
+                        (click)="viewOrderDetails(order._id)"
+                      >
+                        Details
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noOrders>
+          <div class="row mt-4">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+              <img
+                src="../../../../../assets/img/empty_list.svg"
+                alt="list-empty"
+                class="empty-list-icon"
+              />
+              <h1>You haven't made any orders yet.</h1>
+              <h3>
+                Begin shopping your favourite products and see your orders here!
+              </h3>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </ng-template>
+  </div>
 </div>
