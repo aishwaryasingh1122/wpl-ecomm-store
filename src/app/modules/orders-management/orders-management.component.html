@@ -1,0 +1,96 @@
+<div class="main-content animate__animated animate__fadeIn">
+  <div class="container-fluid">
+    <div *ngIf="showLoader === true; then loader; else list"></div>
+    <ng-template #loader>
+      <div class="row">
+        <div class="col-12" align="center">
+          <h4>
+            <mat-spinner
+              mode="indeterminate"
+              color="primary"
+              [diameter]="30"
+            ></mat-spinner>
+            Fetching Orders ...
+          </h4>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #list>
+      <ng-container *ngIf="orders$ | async as orders">
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Status</th>
+                <th scope="col">Order Id</th>
+                <th scope="col">Date Created</th>
+                <th scope="col">Order Total</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let order of orders">
+                <th scope="row">
+                  <span
+                    [matMenuTriggerFor]="updateStatusMenu"
+                    class="badge bg-primary pointer"
+                    [ngClass]="{
+                      'bg-danger': order.status === 'CANCELLED',
+                      'bg-success': order.status === 'COMPLETED'
+                    }"
+                    >{{ order.status }}</span
+                  >
+                  <mat-menu #updateStatusMenu="matMenu">
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'CANCELLED')"
+                    >
+                      <span class="text-danger">Cancelled</span>
+                    </button>
+
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'PROCESSING')"
+                    >
+                      <span>Processing</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'DISPATCHED')"
+                    >
+                      <span>Dispatched</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'COMPLETED')"
+                    >
+                      <span class="text-success">Completed</span>
+                    </button>
+                  </mat-menu>
+                </th>
+                <td>
+                  {{ order._id | summary: 7 | uppercase }}
+                </td>
+                <td>
+                  {{ order.createdAt | amDateFormat: "MMM-DD-YYYY hh:mm a" }}
+                </td>
+                <td align="end">
+                  {{ order.orderTotal | currency }}
+                </td>
+                <td>
+                  <button
+                    mat-button
+                    color="primary"
+                    (click)="viewOrderDetails(order._id)"
+                  >
+                    View Details
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-container>
+    </ng-template>
+  </div>
+</div>

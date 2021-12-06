@@ -5,6 +5,7 @@ import { AppLayoutComponent } from './layouts/app-layout/app-layout.component';
 import { AuthLayoutComponent } from './layouts/auth-layout/auth-layout.component';
 import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
+import { OrdersManagementModule } from './modules/orders-management/orders-management.module';
 import { OrdersModule } from './modules/orders/orders.module';
 import { ProductCategoriesModule } from './modules/product-categories/product-categories.module';
 import { ProductManagementModule } from './modules/product-management/product-management.module';
@@ -56,6 +57,15 @@ const routes: Routes = [
       {
         path: 'product-management',
         loadChildren: () => ProductManagementModule,
+        canActivate: [
+          AuthGuardService,
+          RestoreSessionService,
+          AdminGuardService,
+        ],
+      },
+      {
+        path: 'order-management',
+        loadChildren: () => OrdersManagementModule,
         canActivate: [
           AuthGuardService,
           RestoreSessionService,

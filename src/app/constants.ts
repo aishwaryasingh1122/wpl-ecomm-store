@@ -120,6 +120,12 @@ export const ADMIN_ENTITIES: NavItem[] = [
     type: 'child',
     icontype: 'keyboard_backspace',
   },
+  {
+    path: '/order-management',
+    title: 'Orders Management',
+    type: 'parent',
+    icontype: 'receipt',
+  },
 ];
 
 export const GUEST_USER: User = {
