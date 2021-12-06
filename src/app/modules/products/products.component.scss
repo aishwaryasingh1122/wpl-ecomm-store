@@ -1,3 +1,12 @@
 .badge {
   left: 90%;
 }
+
+.main-content {
+  position: relative;
+}
+
+mat-paginator {
+  width: 100%;
+  margin-bottom: 1rem;
+}

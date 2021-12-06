@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { PageEvent } from '@angular/material/paginator';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
@@ -24,6 +25,9 @@ export class ProductsComponent implements OnInit {
   categories$: Observable<ProductCategory[]>;
   searchText?: string;
   currentUser?: User;
+
+  startPageIndex = 0;
+  pageSize = 5;
 
   showLoader = true;
   dialogRef: any = null;
@@ -108,5 +112,10 @@ export class ProductsComponent implements OnInit {
           this.toastrService.error(err, 'Something went wrong. Try again!');
         },
       });
+  }
+
+  updatepage(page: PageEvent) {
+    this.pageSize = page.pageSize;
+    this.startPageIndex = page.pageIndex * page.pageSize;
   }
 }
