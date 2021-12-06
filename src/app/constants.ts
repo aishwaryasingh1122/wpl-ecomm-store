@@ -30,6 +30,7 @@ export const API_CONFIG = {
   ORDERS: {
     GET_ORDERS_FOR_USER: '/api/account/orders',
     CREATE_ORDER: '/api/account/orders',
+    GET_ORDER_BY_ID: '/api/account/orders/:orderId',
   },
   ADMIN: {
     USERS: {

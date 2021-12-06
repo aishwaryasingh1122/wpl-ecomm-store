@@ -12,7 +12,25 @@ export class OrdersService {
   private ordersSubject = new BehaviorSubject<Order[]>([]);
   orders$: Observable<Order[]> = this.ordersSubject.asObservable();
 
+  private orderDetailsSubject = new BehaviorSubject<Order>({});
+  order$: Observable<Order> = this.orderDetailsSubject.asObservable();
+
   constructor(private dataService: DataService) {}
+
+  getOrderById(orderId: string): Observable<boolean> {
+    return this.dataService
+      .sendGET(API_CONFIG.ORDERS.GET_ORDER_BY_ID.replace(':orderId', orderId))
+      .pipe(
+        map((res: HttpResponse<any>) => {
+          if (res && res.status == 200) {
+            this.orderDetailsSubject.next(res.body);
+          }
+
+          return res && res.status === 200;
+        }),
+        catchError(handleHTTPError)
+      );
+  }
 
   getAllOrders(): Observable<boolean> {
     return this.dataService
@@ -73,6 +91,7 @@ export class OrdersService {
             if (orderIndexToUpdate != -1) {
               orders[orderIndexToUpdate].status = status;
               this.ordersSubject.next([...orders]);
+              this.orderDetailsSubject.next({ ...orders[orderIndexToUpdate] });
             }
           }
           return res && res.status === 200;

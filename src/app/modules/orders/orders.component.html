@@ -41,6 +41,7 @@
                             class="badge bg-primary"
                             [ngClass]="{
                               'bg-info': order.status === 'PROCESSING',
+                              'bg-info': order.status === 'DISPATCHED',
                               'bg-danger': order.status === 'CANCELLED',
                               'bg-success': order.status === 'COMPLETED'
                             }"

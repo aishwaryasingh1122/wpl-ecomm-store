@@ -1,3 +1,174 @@
 <div class="main-content animate__animated animate__fadeIn">
-  <div class="container-fluid">Order Details!</div>
+  <div class="container-fluid">
+    <ng-container *ngIf="order$ | async as order">
+      <div class="row">
+        <div class="col-12 col-md-6 col-lg-3">
+          <div class="card mat-elevation-z2" align="center">
+            <a href="javascript:;">
+              <img
+                class="img"
+                src="./assets/img/apartments.svg"
+                class="mat-elevation-z6 avatar"
+              />
+            </a>
+            <div class="card-body">
+              <h6 class="card-category text-gray">Delivery Address</h6>
+              <h4 class="card-title">
+                {{ order.deliveryAddress.name | titlecase }}
+              </h4>
+
+              <p>
+                {{ order.deliveryAddress.addressLine1 }}
+                {{ order.deliveryAddress.addressLine2 }}
+              </p>
+              <p>
+                {{ order.deliveryAddress.apartment }}
+              </p>
+              <p>Pincode: {{ order.deliveryAddress.pincode }}</p>
+              <p>
+                <strong>Contact: </strong>
+                <a
+                  class="contact-link"
+                  href="tel:{{ order.deliveryAddress.mobile }}"
+                  >{{ order.deliveryAddress.mobile }}</a
+                >
+              </p>
+              <p *ngIf="order.deliveryAddress.deliveryInstructions">
+                <strong>Delivery Instructions:</strong>
+                {{ order.deliveryAddress.deliveryInstructions }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-9">
+          <div class="row">
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card mat-elevation-z2">
+                <div class="card-body">
+                  <p>Order Id</p>
+                  <h4 class="card-title text-truncate" [matTooltip]="order._id">
+                    {{ order._id | summary: 7 | uppercase }}
+                  </h4>
+                </div>
+                <div class="card-footer">
+                  Date:
+                  {{
+                    order.createdAt | amDateFormat: "MMM DD, YYYY hh:mm:ss a"
+                  }}
+                </div>
+              </div>
+            </div>
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card mat-elevation-z2">
+                <div class="card-body">
+                  <p>Order Status</p>
+                  <h4>
+                    <span
+                      class="pointer"
+                      [matMenuTriggerFor]="updateStatusMenu"
+                      *ngIf="(user$ | async)?.role >= 1; else statusText"
+                    >
+                      <span [ngClass]="orderStatusColor[order.status]">{{
+                        order.status
+                      }}</span>
+                      <mat-icon>arrow_drop_down</mat-icon>
+                    </span>
+                    <ng-template #statusText>
+                      <span [ngClass]="orderStatusColor[order.status]">{{
+                        order.status
+                      }}</span>
+                    </ng-template>
+                  </h4>
+                  <mat-menu #updateStatusMenu="matMenu">
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'CANCELLED')"
+                    >
+                      <span class="text-danger">Cancelled</span>
+                    </button>
+
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'PROCESSING')"
+                    >
+                      <span class="text-info">Processing</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'DISPATCHED')"
+                    >
+                      <span class="text-info">Dispatched</span>
+                    </button>
+                    <button
+                      mat-menu-item
+                      (click)="updateOrderStatus(order._id, 'COMPLETED')"
+                    >
+                      <span class="text-success">Completed</span>
+                    </button>
+                  </mat-menu>
+                </div>
+                <div class="card-footer">
+                  Updated:
+                  {{
+                    order.updatedAt | amDateFormat: "MMM DD, YYYY hh:mm:ss a"
+                  }}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card my-2">
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th class="text-center" scope="col">#</th>
+                      <th class="text-center" scope="col">Name</th>
+                      <th class="text-center" scope="col">Rate</th>
+                      <th class="text-center" scope="col">Quantity</th>
+                      <th class="text-center" scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of order.productData; index as $index">
+                      <th class="text-center">{{ $index + 1 }}.</th>
+                      <td class="text-center">{{ item.product.name }}</td>
+                      <td class="text-center">
+                        {{ item.product.rate | currency }} /
+                        {{ item.product.weight }}
+                        {{ item.product.unit }}
+                      </td>
+                      <td class="text-center">{{ item.quantity }}</td>
+                      <td class="text-right">
+                        <span class="font-weight-bolder">
+                          {{ item.quantity * item.product.rate | currency }}
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row">
+                  <div
+                    class="
+                      col-12 col-md-6
+                      offset-md-6
+                      col-lg-3
+                      offset-lg-9
+                      d-flex
+                      justify-content-between
+                    "
+                  >
+                    <h3 class="mt-0">Total:</h3>
+                    <h3 class="mt-0">
+                      {{ order.orderTotal | currency }}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
 </div>

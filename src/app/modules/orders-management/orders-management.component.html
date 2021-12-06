@@ -36,6 +36,7 @@
                     class="badge bg-primary pointer"
                     [ngClass]="{
                       'bg-info': order.status === 'PROCESSING',
+                      'bg-info': order.status === 'DISPATCHED',
                       'bg-danger': order.status === 'CANCELLED',
                       'bg-success': order.status === 'COMPLETED'
                     }"
@@ -59,7 +60,7 @@
                       mat-menu-item
                       (click)="updateOrderStatus(order._id, 'DISPATCHED')"
                     >
-                      <span>Dispatched</span>
+                      <span class="text-info">Dispatched</span>
                     </button>
                     <button
                       mat-menu-item

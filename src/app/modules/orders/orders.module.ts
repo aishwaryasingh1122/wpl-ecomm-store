@@ -7,6 +7,7 @@ import { OrderDetailsComponent } from './order-details/order-details.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { MomentModule } from 'ngx-moment';
 import { MaterialModule } from 'src/app/material.module';
+import { DialogsModule } from '../dialogs/dialogs.module';
 
 @NgModule({
   declarations: [OrdersComponent, OrderDetailsComponent],
@@ -16,6 +17,7 @@ import { MaterialModule } from 'src/app/material.module';
     PipesModule,
     MomentModule,
     MaterialModule,
+    DialogsModule,
   ],
 })
 export class OrdersModule {}
