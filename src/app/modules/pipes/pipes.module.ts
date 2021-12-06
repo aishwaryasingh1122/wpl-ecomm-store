@@ -6,6 +6,7 @@ import { FilterDeletedCategories } from './filter-deleted-categories.pipe';
 import { SearchProductsPipe } from './products-search.pipe';
 import { GroupOrdersByDatePipe } from './group-orders-by-date.pipe';
 import { SummaryPipe } from './summary.pipe';
+import { FilterOrdersByStatusPipe } from './filter-orders-by-status.pipe';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SummaryPipe } from './summary.pipe';
     SearchProductsPipe,
     GroupOrdersByDatePipe,
     SummaryPipe,
+    FilterOrdersByStatusPipe,
   ],
   imports: [CommonModule],
   exports: [
@@ -24,6 +26,7 @@ import { SummaryPipe } from './summary.pipe';
     SearchProductsPipe,
     GroupOrdersByDatePipe,
     SummaryPipe,
+    FilterOrdersByStatusPipe,
   ],
 })
 export class PipesModule {}

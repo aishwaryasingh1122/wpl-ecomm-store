@@ -17,81 +17,121 @@
     </ng-template>
     <ng-template #list>
       <ng-container *ngIf="orders$ | async as orders">
-        <div class="table-responsive">
-          <table class="table table-striped table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Status</th>
-                <th scope="col">Order Id</th>
-                <th scope="col">Date Created</th>
-                <th scope="col">Order Total</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let order of orders">
-                <th scope="row">
-                  <span
-                    [matMenuTriggerFor]="updateStatusMenu"
-                    class="badge bg-primary pointer"
-                    [ngClass]="{
-                      'bg-info': order.status === 'PROCESSING',
-                      'bg-info': order.status === 'DISPATCHED',
-                      'bg-danger': order.status === 'CANCELLED',
-                      'bg-success': order.status === 'COMPLETED'
-                    }"
-                    >{{ order.status }}</span
-                  >
-                  <mat-menu #updateStatusMenu="matMenu">
-                    <button
-                      mat-menu-item
-                      (click)="updateOrderStatus(order._id, 'CANCELLED')"
+        <ng-container *ngIf="orders.length > 0; else noOrders">
+          <div class="row">
+            <div class="col-6 col-md-4 col-lg-3">
+              <mat-form-field color="primary" appearance="outline">
+                <mat-label>Filter orders by status</mat-label>
+                <mat-select [formControl]="orderStatusFilterControl">
+                  <mat-option value="">Show All</mat-option>
+                  <mat-option value="NEW">NEW</mat-option>
+                  <mat-option value="PROCESSING">PROCESSING</mat-option>
+                  <mat-option value="DISPATCHED">DISPATCHED</mat-option>
+                  <mat-option value="COMPLETED">COMPLETED</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="card mat-elevation-z2">
+            <div class="card-body">
+              <h3>Orders List</h3>
+              <div class="table-responsive">
+                <table class="table table-striped table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col">Status</th>
+                      <th scope="col">Order Id</th>
+                      <th scope="col">Date Created</th>
+                      <th scope="col">Order Total</th>
+                      <th scope="col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="
+                        let order of orders
+                          | filterOrdersByStatus: orderStatusFilterControl.value
+                      "
                     >
-                      <span class="text-danger">Cancelled</span>
-                    </button>
+                      <th scope="row">
+                        <span
+                          [matMenuTriggerFor]="updateStatusMenu"
+                          class="badge bg-primary pointer"
+                          [ngClass]="{
+                            'bg-info': order.status === 'PROCESSING',
+                            'bg-info': order.status === 'DISPATCHED',
+                            'bg-danger': order.status === 'CANCELLED',
+                            'bg-success': order.status === 'COMPLETED'
+                          }"
+                          >{{ order.status }}</span
+                        >
+                        <mat-menu #updateStatusMenu="matMenu">
+                          <button
+                            mat-menu-item
+                            (click)="updateOrderStatus(order._id, 'CANCELLED')"
+                          >
+                            <span class="text-danger">Cancelled</span>
+                          </button>
 
-                    <button
-                      mat-menu-item
-                      (click)="updateOrderStatus(order._id, 'PROCESSING')"
-                    >
-                      <span class="text-info">Processing</span>
-                    </button>
-                    <button
-                      mat-menu-item
-                      (click)="updateOrderStatus(order._id, 'DISPATCHED')"
-                    >
-                      <span class="text-info">Dispatched</span>
-                    </button>
-                    <button
-                      mat-menu-item
-                      (click)="updateOrderStatus(order._id, 'COMPLETED')"
-                    >
-                      <span class="text-success">Completed</span>
-                    </button>
-                  </mat-menu>
-                </th>
-                <td>
-                  {{ order._id | summary: 7 | uppercase }}
-                </td>
-                <td>
-                  {{ order.createdAt | amDateFormat: "MMM-DD-YYYY hh:mm a" }}
-                </td>
-                <td align="end">
-                  {{ order.orderTotal | currency }}
-                </td>
-                <td>
-                  <button
-                    mat-button
-                    color="primary"
-                    (click)="viewOrderDetails(order._id)"
-                  >
-                    View Details
-                  </button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                          <button
+                            mat-menu-item
+                            (click)="updateOrderStatus(order._id, 'PROCESSING')"
+                          >
+                            <span class="text-info">Processing</span>
+                          </button>
+                          <button
+                            mat-menu-item
+                            (click)="updateOrderStatus(order._id, 'DISPATCHED')"
+                          >
+                            <span class="text-info">Dispatched</span>
+                          </button>
+                          <button
+                            mat-menu-item
+                            (click)="updateOrderStatus(order._id, 'COMPLETED')"
+                          >
+                            <span class="text-success">Completed</span>
+                          </button>
+                        </mat-menu>
+                      </th>
+                      <td>
+                        {{ order._id | summary: 7 | uppercase }}
+                      </td>
+                      <td>
+                        {{
+                          order.createdAt | amDateFormat: "MMM-DD-YYYY hh:mm a"
+                        }}
+                      </td>
+                      <td align="end">
+                        {{ order.orderTotal | currency }}
+                      </td>
+                      <td>
+                        <button
+                          mat-button
+                          color="primary"
+                          (click)="viewOrderDetails(order._id)"
+                        >
+                          View Details
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </ng-container>
+        <ng-template #noOrders>
+          <div class="row mt-4">
+            <div class="col-12 col-md-8 offset-md-2 text-center">
+              <img
+                src="../../../../../assets/img/empty_list.svg"
+                alt="list-empty"
+                class="empty-list-icon"
+              />
+              <h1>No orders found.</h1>
+            </div>
+          </div>
+        </ng-template>
       </ng-container>
     </ng-template>
   </div>

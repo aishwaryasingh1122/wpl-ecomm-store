@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { sortBy } from 'lodash';
@@ -18,6 +19,8 @@ export class OrdersManagementComponent implements OnInit {
   orders$: Observable<Order[]>;
   showLoader = true;
   dialogRef: any;
+
+  orderStatusFilterControl: FormControl = new FormControl('', []);
 
   constructor(
     private ordersService: OrdersService,

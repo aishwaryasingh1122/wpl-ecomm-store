@@ -7,6 +7,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { PipesModule } from '../pipes/pipes.module';
 import { MomentModule } from 'ngx-moment';
 import { DialogsModule } from '../dialogs/dialogs.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [OrdersManagementComponent],
@@ -17,6 +18,8 @@ import { DialogsModule } from '../dialogs/dialogs.module';
     PipesModule,
     MomentModule,
     DialogsModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
 })
 export class OrdersManagementModule {}
