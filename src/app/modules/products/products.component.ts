@@ -27,7 +27,7 @@ export class ProductsComponent implements OnInit {
   currentUser?: User;
 
   startPageIndex = 0;
-  pageSize = 5;
+  pageSize = 10;
 
   showLoader = true;
   dialogRef: any = null;

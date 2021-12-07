@@ -1,9 +1,9 @@
 import { HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, map, Observable } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 import { API_CONFIG, handleHTTPError } from '../constants';
 import {
-  AddProductParams,
+  ManageProductParams,
   Product,
   UpdateQuantityParams,
 } from '../models/product';
@@ -16,7 +16,31 @@ export class ProductsService {
   private productsSubject = new BehaviorSubject<Product[]>([]);
   products$: Observable<Product[]> = this.productsSubject.asObservable();
 
+  private productDetailsSubject = new BehaviorSubject<Product>({});
+  product$: Observable<Product> = this.productDetailsSubject.asObservable();
+
   constructor(private dataService: DataService) {}
+
+  getProductById(productId: string): Observable<boolean> {
+    if (!productId?.trim()) {
+      this.productDetailsSubject.next({});
+      return of(true);
+    }
+
+    return this.dataService
+      .sendGET(
+        API_CONFIG.PRODUCTS.GET_PRODUCT_BY_ID.replace(':productId', productId)
+      )
+      .pipe(
+        map((res: HttpResponse<any>) => {
+          if (res && res.status === 200) {
+            this.productDetailsSubject.next(res.body);
+          }
+
+          return res && res.status === 200;
+        }, catchError(handleHTTPError))
+      );
+  }
 
   getAllProducts(): Observable<boolean> {
     return this.dataService.sendGET(API_CONFIG.PRODUCTS.GET_PRODUCTS).pipe(
@@ -30,7 +54,7 @@ export class ProductsService {
     );
   }
 
-  addNewProduct(product: AddProductParams): Observable<boolean> {
+  addNewProduct(product: ManageProductParams): Observable<boolean> {
     return this.dataService
       .sendPOST(API_CONFIG.ADMIN.PRODUCTS.ADD_PRODUCT, undefined, product)
       .pipe(
@@ -41,6 +65,17 @@ export class ProductsService {
             this.productsSubject.next([...products]);
           }
 
+          return res && res.status == 200;
+        }),
+        catchError(handleHTTPError)
+      );
+  }
+
+  updateProductDetails(product: ManageProductParams): Observable<boolean> {
+    return this.dataService
+      .sendPUT(API_CONFIG.ADMIN.PRODUCTS.EDIT_PRODUCT, undefined, product)
+      .pipe(
+        map((res: HttpResponse<any>) => {
           return res && res.status == 200;
         }),
         catchError(handleHTTPError)

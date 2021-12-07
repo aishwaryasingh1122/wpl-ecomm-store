@@ -12,6 +12,7 @@ export const API_CONFIG = {
   },
   PRODUCTS: {
     GET_PRODUCTS: '/api/products',
+    GET_PRODUCT_BY_ID: '/api/products/:productId',
   },
   CATEGORIES: {
     GET_CATEGORIES: '/api/product-category',
@@ -44,6 +45,7 @@ export const API_CONFIG = {
     },
     PRODUCTS: {
       ADD_PRODUCT: '/api/account/admin/product',
+      EDIT_PRODUCT: '/api/account/admin/product',
       UPDATE_QUANTITY: '/api/account/admin/product/update-quantity/:productId',
       TOGGLE_AVAILABILITY:
         '/api/account/admin/product/toggle-availability/:productId',

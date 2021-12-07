@@ -1,20 +1,21 @@
 import { ProductCategory } from './product-category';
 
 export interface Product {
-  _id: string;
-  name: string;
-  weight: number;
-  unit: string;
-  rate: number;
-  category: ProductCategory;
-  createdAt: string;
-  imageURL: string;
-  isDeleted: boolean;
-  quantity: number;
-  bufferQuantity: number;
+  _id?: string;
+  name?: string;
+  weight?: number;
+  unit?: string;
+  rate?: number;
+  category?: ProductCategory;
+  createdAt?: string;
+  imageURL?: string;
+  isDeleted?: boolean;
+  quantity?: number;
+  bufferQuantity?: number;
 }
 
-export interface AddProductParams {
+export interface ManageProductParams {
+  _id?: string;
   name: string;
   weight: number;
   unit: string;

@@ -14,11 +14,7 @@ import { OrdersService } from './orders.service';
   providedIn: 'root',
 })
 export class OrderDetailsGuardService {
-  constructor(
-    private ordersService: OrdersService,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
+  constructor(private ordersService: OrdersService, private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,

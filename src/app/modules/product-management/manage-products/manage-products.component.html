@@ -19,8 +19,10 @@
       <div class="row animate__animated animate__fadeIn">
         <div class="col-12 col-md-8 mx-auto">
           <div class="card">
-            <div class="card-body">
-              <h3>Add New Product</h3>
+            <div class="card-body" *ngIf="showForm">
+              <h3>
+                {{ product ? "Update Product Details" : "Add New Product" }}
+              </h3>
               <form [formGroup]="newProductForm">
                 <mat-form-field appearance="outline">
                   <mat-label>Product Name</mat-label>
@@ -149,6 +151,7 @@
                       <img
                         class="img-thumbnail"
                         [src]="
+                          product?.imageURL ||
                           productImage?.base64 ||
                           '../../../../assets/img/product-placeholder.png'
                         "
@@ -177,7 +180,7 @@
                       (click)="submitProduct()"
                       [disabled]="newProductForm.invalid"
                     >
-                      Add Product
+                      {{ this.product ? "Update Product" : "Add Product" }}
                     </button>
                   </div>
                 </div>
