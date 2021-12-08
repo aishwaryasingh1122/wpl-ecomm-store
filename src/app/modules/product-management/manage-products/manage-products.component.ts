@@ -120,6 +120,7 @@ export class ManageProductsComponent implements OnInit, OnDestroy {
     this.filePicker.reset();
     this.dialogRef.afterClosed().subscribe((image: any) => {
       if (image != undefined) {
+        this.product.imageURL = '';
         this.productImage = image;
         this.imageFileName = $event.underlyingFile.name;
       }

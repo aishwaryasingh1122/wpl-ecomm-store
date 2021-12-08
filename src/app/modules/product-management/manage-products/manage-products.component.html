@@ -165,7 +165,11 @@
                         color="primary"
                         class="my-3"
                       >
-                        Add Product Image
+                        {{
+                          this.product
+                            ? "Update Product Image"
+                            : "Add Product Image"
+                        }}
                       </button>
                     </div>
                   </div>

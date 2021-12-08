@@ -55,6 +55,7 @@
                           <th scope="col">Quantity</th>
                           <th scope="col">Buffer Quantity</th>
                           <th scope="col">Date Added</th>
+                          <th scope="col">Action</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -124,6 +125,17 @@
                             {{
                               product.createdAt | amDateFormat: "MMM-DD-YYYY"
                             }}
+                          </td>
+                          <td>
+                            <button
+                              mat-icon-button
+                              color="primary"
+                              matTooltip="Edit Product Details"
+                              matTooltipPosition="below"
+                              (click)="modifyProductDetails(product?._id)"
+                            >
+                              <mat-icon>edit</mat-icon>
+                            </button>
                           </td>
                         </tr>
                       </tbody>

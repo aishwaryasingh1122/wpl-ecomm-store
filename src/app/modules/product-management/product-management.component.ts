@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ToastrService } from 'ngx-toastr';
 import { EMPTY, Observable, switchMap } from 'rxjs';
@@ -27,7 +28,8 @@ export class ProductManagementComponent implements OnInit {
     private toastrService: ToastrService,
     private dialog: MatDialog,
     private productsService: ProductsService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private router: Router
   ) {
     this.products$ = this.productsService.products$;
   }
@@ -137,5 +139,9 @@ export class ProductManagementComponent implements OnInit {
           this.toastrService.error(err, 'Something went wrong.');
         },
       });
+  }
+
+  modifyProductDetails(productId: string) {
+    this.router.navigate([`/product-management/modify/${productId}`]);
   }
 }
